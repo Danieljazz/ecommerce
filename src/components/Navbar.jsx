@@ -10,12 +10,13 @@ const NavbarWrapper = styled.div`
   align-items: center;
   background: linear-gradient(
     90deg,
-    rgba(22, 2, 54, 0.7) 0%,
-    rgba(254, 201, 139, 0.7) 30%,
-    rgba(241, 11, 100, 0.7) 100%
+    rgba(94, 201, 139, 1) 0%,
+    rgba(254, 201, 139, 1) 30%,
+    rgba(241, 11, 100, 1) 100%
   );
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
+  position: relative;
 `;
 
 const Left = styled.div`
