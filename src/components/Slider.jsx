@@ -7,6 +7,8 @@ const Container = styled.div`
   height: 100vh;
   width: 100%;
   display: flex;
+  position: relative;
+  align-items: center;
 `;
 
 const Arrow = styled.div`
@@ -18,18 +20,18 @@ const Arrow = styled.div`
   position: absolute;
   left: ${(props) => props.direction === "left" && "10px"};
   right: ${(props) => props.direction === "right" && "10px"};
+  z-index: 2;
 `;
 
 const Wrapper = styled.div`
   height: 100vh;
-  width: 100vw;
   display: flex;
   align-items: center;
 `;
 
 const SliderWrapper = styled.div`
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   background: orange;
   display: flex;
   align-items: center;
@@ -65,12 +67,18 @@ const Button = styled.button`
 `;
 
 const Slider = () => {
+  const ArrowHandler = (direct) => {
+    if (direct === "+") {
+      return;
+    }
+  };
+
   return (
     <Container>
+      <Arrow direction="left" onClick={(transform) => transform - 100}>
+        <KeyboardArrowLeftIcon />
+      </Arrow>
       <Wrapper>
-        <Arrow direction="left">
-          <KeyboardArrowLeftIcon />
-        </Arrow>
         <SliderWrapper>
           <ImageContainer>
             <Image src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1620&q=80"></Image>
@@ -81,10 +89,30 @@ const Slider = () => {
             <Button>Click here</Button>
           </DescriptionContainer>
         </SliderWrapper>
-        <Arrow direction="right">
-          <KeyboardArrowRightIcon />
-        </Arrow>
+        <SliderWrapper>
+          <ImageContainer>
+            <Image src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1620&q=80"></Image>
+          </ImageContainer>
+          <DescriptionContainer>
+            <Title>New Collection.</Title>
+            <Desc>Checkout our new collection</Desc>
+            <Button>Click here</Button>
+          </DescriptionContainer>
+        </SliderWrapper>
+        <SliderWrapper>
+          <ImageContainer>
+            <Image src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1620&q=80"></Image>
+          </ImageContainer>
+          <DescriptionContainer>
+            <Title>New Collection.</Title>
+            <Desc>Checkout our new collection</Desc>
+            <Button>Click here</Button>
+          </DescriptionContainer>
+        </SliderWrapper>
       </Wrapper>
+      <Arrow direction="right">
+        <KeyboardArrowRightIcon />
+      </Arrow>
     </Container>
   );
 };
