@@ -14,8 +14,6 @@ const NavbarWrapper = styled.div`
     rgba(254, 201, 139, 1) 30%,
     rgba(241, 11, 100, 1) 100%
   );
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
   position: relative;
 `;
 

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useState, useEffect } from "react";
+import { sliderItems } from "../data.js";
 
 const Container = styled.div`
   height: 100vh;
@@ -9,6 +11,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   align-items: center;
+  overflow: hidden;
 `;
 
 const Arrow = styled.div`
@@ -21,18 +24,21 @@ const Arrow = styled.div`
   left: ${(props) => props.direction === "left" && "10px"};
   right: ${(props) => props.direction === "right" && "10px"};
   z-index: 2;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
+  transition: all 1.2s ease;
+  transform: translateX(${(props) => props.transform * -100}vw);
 `;
 
 const SliderWrapper = styled.div`
   height: 100vh;
   width: 100vw;
-  background: orange;
+  background: ${(props) => props.bg};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,50 +73,43 @@ const Button = styled.button`
 `;
 
 const Slider = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+
   const ArrowHandler = (direct) => {
     if (direct === "+") {
-      return;
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+    } else {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
     }
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      ArrowHandler("+");
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [slideIndex]);
+
   return (
     <Container>
-      <Arrow direction="left" onClick={(transform) => transform - 100}>
+      <Arrow direction="left" onClick={() => ArrowHandler("-")}>
         <KeyboardArrowLeftIcon />
       </Arrow>
-      <Wrapper>
-        <SliderWrapper>
-          <ImageContainer>
-            <Image src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1620&q=80"></Image>
-          </ImageContainer>
-          <DescriptionContainer>
-            <Title>New Collection.</Title>
-            <Desc>Checkout our new collection</Desc>
-            <Button>Click here</Button>
-          </DescriptionContainer>
-        </SliderWrapper>
-        <SliderWrapper>
-          <ImageContainer>
-            <Image src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1620&q=80"></Image>
-          </ImageContainer>
-          <DescriptionContainer>
-            <Title>New Collection.</Title>
-            <Desc>Checkout our new collection</Desc>
-            <Button>Click here</Button>
-          </DescriptionContainer>
-        </SliderWrapper>
-        <SliderWrapper>
-          <ImageContainer>
-            <Image src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1620&q=80"></Image>
-          </ImageContainer>
-          <DescriptionContainer>
-            <Title>New Collection.</Title>
-            <Desc>Checkout our new collection</Desc>
-            <Button>Click here</Button>
-          </DescriptionContainer>
-        </SliderWrapper>
+      <Wrapper transform={slideIndex}>
+        {sliderItems.map((slideItem) => (
+          <SliderWrapper bg={slideItem.bg}>
+            <ImageContainer>
+              <Image src={slideItem.imgSrc}></Image>
+            </ImageContainer>
+            <DescriptionContainer>
+              <Title>{slideItem.title}</Title>
+              <Desc>{slideItem.desc}</Desc>
+              <Button>Click here</Button>
+            </DescriptionContainer>
+          </SliderWrapper>
+        ))}
       </Wrapper>
-      <Arrow direction="right">
+      <Arrow direction="right" onClick={() => ArrowHandler("+")}>
         <KeyboardArrowRightIcon />
       </Arrow>
     </Container>
