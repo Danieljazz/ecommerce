@@ -44,7 +44,7 @@ export const hotProducts = [
     {
         id: 0, 
         imgSrc: "https://images.unsplash.com/photo-1560060141-7b9018741ced?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=879&q=80",
-        desc: 'Sweaters',
+        desc: 'Sweater Anna',
         category: 'Sweaters'
     },
         {
@@ -62,13 +62,13 @@ export const hotProducts = [
     {
         id: 3, 
         imgSrc: "https://images.unsplash.com/photo-1626122760325-4b28cd7ee6a4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-        desc: 'Glasses',
+        desc: 'Momo',
         category: 'Accessories'
     },
     {
         id: 4, 
         imgSrc: "https://images.unsplash.com/photo-1664542496645-958567bf6b11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
-        desc: 'Dress',
+        desc: 'DS',
         category: 'Dresses'
     },
     {

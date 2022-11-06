@@ -8,13 +8,18 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  opacity: 0.8;
+  transition: all 1.2s ease;
+  &:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 `;
 
 const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.8;
 `;
 
 const Description = styled.p`

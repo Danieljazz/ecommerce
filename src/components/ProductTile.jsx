@@ -1,8 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 
+const Description = styled.p`
+  opacity: 1;
+  z-index: 1;
+  position: absolute;
+  font-size: 32px;
+  font-style: italic;
+  color: rgba(254, 254, 254, 0.9);
+  cursor: pointer;
+  &::after {
+    position: absolute;
+    content: "";
+    background-color: #fff;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: all 1s ease;
+  }
+  &:hover::after {
+    width: 100%;
+  }
+`;
+
 const Container = styled.div`
-  color: #000;
   width: 500px;
   height: 500px;
   overflow: hidden;
@@ -10,34 +32,28 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-`;
-
-const Description = styled.p`
-  opacity: 1;
-  z-index: 1;
-  position: absolute;
-  bottom: 0px;
-  font-size: 28px;
-  font-style: italic;
-`;
-
-const Image = styled.img`
-  width: 80%;
-  height: 80%;
-  object-fit: cover;
   opacity: 0.5;
   transition: all 1.2s ease;
   &:hover {
-    opacity: 0.8;
+    opacity: 1;
     transform: scale(1.1);
+    & ${Description} {
+      color: rgba(254, 254, 254, 1);
+    }
   }
+`;
+
+const Image = styled.img`
+  width: 90%;
+  height: 80%;
+  object-fit: cover;
 `;
 
 const ProductTile = ({ item }) => {
   return (
     <Container>
       <Image src={item.imgSrc}></Image>
-      <Description>Description: {item.desc}</Description>
+      <Description>{item.desc}</Description>
     </Container>
   );
 };

@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 100%;
   height: 100vh;
   overflow: hidden;
@@ -27,7 +27,7 @@ const Title = styled.p`
 const HotProducts = () => {
   return (
     <Container>
-      <Title>[Hot Products] </Title>
+      <Title>[Hot Products]</Title>
       {hotProducts.map((item) => (
         <ProductTile item={item}></ProductTile>
       ))}

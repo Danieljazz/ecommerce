@@ -72,6 +72,15 @@ const Button = styled.button`
   font-size: 20px;
 `;
 
+const SectionTitle = styled.p`
+  color: #f0faf0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 60px;
+  z-index: 2;
+`;
+
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
 
@@ -92,6 +101,7 @@ const Slider = () => {
 
   return (
     <Container>
+      <SectionTitle>[New]</SectionTitle>
       <Arrow direction="left" onClick={() => ArrowHandler("-")}>
         <KeyboardArrowLeftIcon />
       </Arrow>
