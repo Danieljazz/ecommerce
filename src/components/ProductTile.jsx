@@ -7,15 +7,17 @@ const Description = styled.p`
   position: absolute;
   font-size: 32px;
   font-style: italic;
-  color: rgba(254, 254, 254, 0.9);
+  color: rgba(254, 254, 254, 1);
   cursor: pointer;
+  background-color: rgba(27, 80, 147, 0.5);
+  padding: 5px 5px;
   &::after {
     position: absolute;
     content: "";
     background-color: #fff;
     width: 0;
     height: 2px;
-    bottom: 0;
+    bottom: 5px;
     left: 0;
     transition: all 1s ease;
   }
@@ -37,9 +39,6 @@ const Container = styled.div`
   &:hover {
     opacity: 1;
     transform: scale(1.1);
-    & ${Description} {
-      color: rgba(254, 254, 254, 1);
-    }
   }
 `;
 
