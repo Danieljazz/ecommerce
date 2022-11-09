@@ -15,6 +15,7 @@ const NavbarWrapper = styled.div`
     rgba(241, 11, 100, 1) 100%
   );
   position: relative;
+  height: 5vh;
 `;
 
 const Left = styled.div`

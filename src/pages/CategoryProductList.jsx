@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import ProductTile from "../components/ProductTile";
+import Footer from "../components/Footer";
+import Announcemenet from "../components/Announcement";
 import { hotProducts } from "../data";
 
 const Container = styled.div`
@@ -13,12 +15,13 @@ const PageTitle = styled.div`
   position: absoulte;
   top: 0;
   left: 0;
-  font-size: 40px;
+  font-size: 60px;
   color: #fff;
 `;
 const ItemsWrapper = styled.div`
   width: 100%;
-  margin-top: 300px;
+  margin-top: 100px;
+  padding-bottom: 180px;
 `;
 const Filter = styled.span`
   color: white;
@@ -49,10 +52,13 @@ const ProductContainer = styled.div`
 `;
 
 const CategoryProductList = () => {
+  const chosenCategory = "Accessories";
+
   return (
     <Container>
+      <Announcemenet></Announcemenet>
       <Navbar></Navbar>
-      <PageTitle>[Dresses]</PageTitle>
+      <PageTitle>[{chosenCategory}]</PageTitle>
       <ItemsWrapper>
         <FilterContainer>
           <Filter>
@@ -67,7 +73,21 @@ const CategoryProductList = () => {
               <Option>Black</Option>
               <Option>Red</Option>
             </Select>
+            <Filter>
+              or
+              <Select>
+                <Option disabled selected>
+                  Size
+                </Option>
+                <Option>XXS</Option>
+                <Option>XS</Option>
+                <Option>S</Option>
+                <Option>M</Option>
+                <Option>L</Option>
+              </Select>
+            </Filter>
           </Filter>
+
           <Filter>
             Sort by
             <Select>
@@ -80,12 +100,13 @@ const CategoryProductList = () => {
         </FilterContainer>
         <ProductContainer>
           {hotProducts.map((item) => {
-            if (item.category === "Dresses") {
+            if (item.category === chosenCategory) {
               return <ProductTile item={item}></ProductTile>;
             }
           })}
         </ProductContainer>
       </ItemsWrapper>
+      <Footer></Footer>
     </Container>
   );
 };

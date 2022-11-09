@@ -78,3 +78,21 @@ export const hotProducts = [
         category: 'Perfume'
     }
 ]
+
+export const productSliderItems = [
+        {
+            id: 0, 
+            imgSrc: "https://images.unsplash.com/photo-1664542496645-958567bf6b11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
+            type: 'img'
+        },
+        {
+            id: 1, 
+            imgSrc: "https://assets.mixkit.co/videos/preview/mixkit-winter-fashion-cold-looking-woman-concept-video-39874-large.mp4",
+            type: 'video'
+        }, 
+        {
+            id: 2, 
+            imgSrc: "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
+            type: 'img'
+        }
+]
