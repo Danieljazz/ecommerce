@@ -4,12 +4,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useState } from "react";
 import { productSliderItems } from "../data";
 
 const Container = styled.div`
   width: 100%;
-  background-color: #a66aab;
+  background-color: ${(props) =>
+    props.bg === undefined ? "#a66aab" : props.bg};
   position: relative;
 `;
 const PageTitle = styled.div`
@@ -26,19 +28,28 @@ const ProductContainer = styled.div`
   align-items: center;
 `;
 const ProductImgContainer = styled.div`
-  width: 50%;
+  width: 70%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 1s ease;
 `;
-const Image = styled.video`
+const Image = styled.img`
   width: 90%;
   height: 90%;
   object-fit: cover;
+  transition: all 1s ease;
 `;
+const Video = styled.video`
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  transition: all 1s ease;
+`;
+
 const ProductDescription = styled.div`
-  width: 50%;
+  width: 30%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -46,7 +57,6 @@ const ProductDescription = styled.div`
 const Description = styled.div`
   width: 90%;
   height: 90%;
-  border: 1px solid #000;
   font-size: 30px;
 `;
 const DescriptionContent = styled.p``;
@@ -72,38 +82,58 @@ const Color = styled.div`
   border-radius: 50%;
   background-color: ${(props) => props.bg};
   margin-left: 20px;
+  cursor: pointer;
 `;
 
 const Arrow = styled.div`
   cursor: pointer;
 `;
 
+const BuyButton = styled.button`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 30px;
+`;
+
+const PriceTag = styled.p`
+  text-align: center;
+  margin-top: 40px;
+  font-size: 90px;
+`;
+
 const Product = () => {
-  const [imgIndex, setImgIndex] = useState(1);
+  const [imgIndex, setImgIndex] = useState(0);
   const ArrowHandler = (dir) => {
     if (dir === "+") {
-      setImgIndex(imgIndex < 2 ? imgIndex + 1 : 2);
+      setImgIndex(imgIndex < 1 ? imgIndex + 1 : 1);
     } else {
       setImgIndex(imgIndex > 0 ? imgIndex - 1 : 0);
     }
   };
+
   return (
-    <Container>
+    <Container bg={productSliderItems[0].bg}>
       <Navbar></Navbar>
       <PageTitle>[Product][DS]</PageTitle>
       <ProductContainer>
         <ProductImgContainer>
           <Arrow onClick={() => ArrowHandler("-")}>
-            <KeyboardArrowLeftIcon />
+            <KeyboardArrowLeftIcon fontSize="large" />
           </Arrow>
-          <Image
-            autoPlay
-            muted
-            loop
-            src={productSliderItems[imgIndex].imgSrc}
-          ></Image>
+          {productSliderItems[imgIndex].type === "img" ? (
+            <Image src={productSliderItems[imgIndex].imgSrc}></Image>
+          ) : (
+            <Video
+              autoPlay
+              loop
+              muted
+              src={productSliderItems[imgIndex].imgSrc}
+            ></Video>
+          )}
           <Arrow onClick={() => ArrowHandler("+")}>
-            <KeyboardArrowRightIcon />
+            <KeyboardArrowRightIcon fontSize="large" />
           </Arrow>
         </ProductImgContainer>
         <ProductDescription>
@@ -128,6 +158,12 @@ const Product = () => {
               <Color bg="black"></Color>
               <Color bg="red"></Color>
               <Color bg="white"></Color>
+            </DescriptionSection>
+            <PriceTag>240$</PriceTag>
+            <DescriptionSection>
+              <BuyButton>
+                Buy <AddShoppingCartIcon fontSize="medium" />
+              </BuyButton>
             </DescriptionSection>
           </Description>
         </ProductDescription>
