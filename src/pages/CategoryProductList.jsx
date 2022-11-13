@@ -5,6 +5,7 @@ import ProductTile from "../components/ProductTile";
 import Footer from "../components/Footer";
 import Announcemenet from "../components/Announcement";
 import { hotProducts } from "../data";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   position: relative;
@@ -17,26 +18,31 @@ const PageTitle = styled.div`
   left: 0;
   font-size: 60px;
   color: #fff;
+  ${mobile({ fontSize: "32px" })}
 `;
 const ItemsWrapper = styled.div`
   width: 100%;
   margin-top: 100px;
   padding-bottom: 180px;
+  ${mobile({ marginTop: "32px", paddingBottom: "32px" })}
 `;
 const Filter = styled.span`
   color: white;
   margin-left: 20px;
   font-size: 28px;
+  ${mobile({ fontSize: "16px", marginBottom: "32px" })}
 `;
 const FilterContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-around;
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const Select = styled.select`
   margin-left: 20px;
   font-size: 28px;
+  ${mobile({ fontSize: "16px" })}
 `;
 const Option = styled.option``;
 
@@ -49,6 +55,7 @@ const ProductContainer = styled.div`
   overflow: hidden;
   position: relative;
   padding-top: 40px;
+  ${mobile({ paddingTop: "0" })}
 `;
 
 const CategoryProductList = () => {

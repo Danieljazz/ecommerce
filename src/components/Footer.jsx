@@ -7,12 +7,12 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
-
+import { mobile } from "../responsive";
 const Container = styled.div`
-  height: 40vh;
   background-color: #000;
   position: relative;
   color: #fff;
+  ${mobile({ display: "flex", flexDirection: "column" })}
 `;
 
 const SectionTitle = styled.p`
@@ -22,13 +22,17 @@ const SectionTitle = styled.p`
   left: 0;
   font-size: 60px;
   z-index: 2;
+  ${mobile({ fontSize: "32px" })}
 `;
 
 const InfoWrapper = styled.div`
   display: flex;
   align-items: flex-start;
-  height: 20vh;
   padding-top: 170px;
+  ${mobile({
+    paddingTop: "50px",
+    flexDirection: "column",
+  })}
 `;
 
 const Socials = styled.div`
@@ -40,15 +44,18 @@ const Socials = styled.div`
 `;
 const SocialsDesc = styled.p`
   font-size: 20px;
+  ${mobile({ fontSize: "10px" })}
 `;
 const IconsConatainer = styled.div`
   padding-top: 10px;
+  ${mobile({ fontSize: "10px" })}
 `;
 const UsefulLinks = styled.div`
   flex: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  ${mobile({ display: "none" })}
 `;
 const UsefulLink = styled.div`
   width: 50%;
@@ -58,14 +65,16 @@ const UsefulLink = styled.div`
 const ContactContainer = styled.div`
   flex: 1;
   display: flex;
-  felx-direction: column;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
+  ${mobile({ padding: "20px 0px 20px 25px" })}
 `;
 const ContactInfo = styled.div`
   width: 100%;
   font-size: 20px;
   margin-top: 10px;
+  ${mobile({ fontSize: "10px" })}
 `;
 const ContainerTitle = styled.span`
   font-size: 28px;
@@ -73,6 +82,7 @@ const ContainerTitle = styled.span`
   text-align: left;
   width: 100%;
   color: ${(props) => props.fontColor};
+  ${mobile({ fontSize: "16px", marginBottom: "10px" })}
 `;
 
 const Footer = () => {
@@ -88,10 +98,10 @@ const Footer = () => {
             felis.
           </SocialsDesc>
           <IconsConatainer>
-            <FacebookIcon sx={{ fontSize: 60 }} />
-            <InstagramIcon sx={{ fontSize: 60 }} />
-            <TwitterIcon sx={{ fontSize: 60 }} />
-            <PinterestIcon sx={{ fontSize: 60 }} />
+            <FacebookIcon />
+            <InstagramIcon />
+            <TwitterIcon />
+            <PinterestIcon />
           </IconsConatainer>
         </Socials>
         <UsefulLinks>

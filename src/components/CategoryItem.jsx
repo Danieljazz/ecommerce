@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { mobile } from "../responsive";
 const Container = styled.div`
   width: 30%;
   height: 80%;
@@ -14,6 +14,12 @@ const Container = styled.div`
     opacity: 1;
     transform: scale(1.1);
   }
+  ${mobile({
+    flexDirection: "column",
+    height: "300px",
+    width: "300px",
+    margin: "10px 0px 10px 0px",
+  })}
 `;
 
 const Image = styled.img`
@@ -26,6 +32,7 @@ const Description = styled.p`
   z-index: 2;
   color: #f0faf0;
   font-size: 60px;
+  ${mobile({ fontSize: "16px" })}
 `;
 
 const Button = styled.button`

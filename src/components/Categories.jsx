@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { categories } from "../data";
-
+import { mobile } from "../responsive";
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -11,9 +11,16 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-evenly;
   position: relative;
+  ${mobile({
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    paddingTop: "50px",
+    paddingBottom: "50px",
+    height: "auto",
+  })}
 `;
 
-const Description = styled.p`
+const PageTitle = styled.p`
   z-index: 2;
   color: #f0faf0;
   font-size: 60px;
@@ -21,12 +28,13 @@ const Description = styled.p`
   top: 0;
   left: 0;
   font-weight: italic;
+  ${mobile({ fontSize: "32px" })}
 `;
 
 const Categories = () => {
   return (
     <Container>
-      <Description>[Categories]</Description>
+      <PageTitle>[Categories]</PageTitle>
       {categories.map((category) => (
         <CategoryItem item={category}></CategoryItem>
       ))}

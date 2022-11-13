@@ -4,7 +4,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useState, useEffect } from "react";
 import { sliderItems } from "../data.js";
-
+import { mobile } from "../responsive";
 const Container = styled.div`
   height: 100vh;
   width: 100%;
@@ -12,11 +12,12 @@ const Container = styled.div`
   position: relative;
   align-items: center;
   overflow: hidden;
+  ${mobile({ height: "auto", paddingBottom: "20px" })}
 `;
 
 const Arrow = styled.div`
   height: 30px;
-  weith: 30px;
+  width: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,6 +43,7 @@ const SliderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${mobile({ flexDirection: "column", paddingTop: "220px" })}
 `;
 
 const ImageContainer = styled.div`
@@ -52,6 +54,7 @@ const ImageContainer = styled.div`
 
 const DescriptionContainer = styled.div`
   flex: 1;
+  ${mobile({ marginTop: "100px" })}
 `;
 
 const Image = styled.img`
@@ -65,6 +68,7 @@ const Title = styled.h1`
 const Desc = styled.p`
   margin: 50px 0;
   font-size: 40px;
+  ${mobile({ fontSize: "20px" })}
 `;
 
 const Button = styled.button`
@@ -79,6 +83,7 @@ const SectionTitle = styled.p`
   left: 0;
   font-size: 60px;
   z-index: 2;
+  ${mobile({ fontSize: "32px" })}
 `;
 
 const Slider = () => {

@@ -7,7 +7,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useState } from "react";
 import { productSliderItems } from "../data";
-
+import { mobile } from "../responsive";
 const Container = styled.div`
   width: 100%;
   background-color: ${(props) =>
@@ -15,17 +15,23 @@ const Container = styled.div`
   position: relative;
 `;
 const PageTitle = styled.div`
-  position: absoulte;
+  position: relative;
   top: 0;
   left: 0;
   font-size: 60px;
   color: #fff;
+  ${mobile({ fontSize: "32px" })}
 `;
 const ProductContainer = styled.div`
   width: 100%;
   height: 85vh;
   display: flex;
   align-items: center;
+  ${mobile({
+    flexDirection: "column",
+    height: "auto",
+    padding: "20px 0px 20px 0px",
+  })}
 `;
 const ProductImgContainer = styled.div`
   width: 70%;
@@ -47,22 +53,31 @@ const Video = styled.video`
   object-fit: cover;
   transition: all 1s ease;
 `;
-
 const ProductDescription = styled.div`
   width: 30%;
   height: 100%;
   display: flex;
   align-items: center;
+  ${mobile({ width: "90%", paddingTop: "20px" })}
 `;
 const Description = styled.div`
   width: 90%;
   height: 90%;
   font-size: 30px;
+  ${mobile({
+    fontSize: "16px",
+    width: "100%",
+    height: "auto",
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+  })}
 `;
 const DescriptionContent = styled.p``;
 const Sizes = styled.select`
   font-size: 28px;
   margin-left: 20px;
+  ${mobile({ fontSize: "16px" })}
 `;
 const DescriptionSection = styled.div`
   width: 100%;
@@ -74,6 +89,7 @@ const DescriptionSection = styled.div`
 
 const Size = styled.option`
   font-size: ${(props) => props.size};
+  ${mobile({ fontSize: "10px" })}
 `;
 
 const Color = styled.div`
@@ -90,17 +106,19 @@ const Arrow = styled.div`
 `;
 
 const BuyButton = styled.button`
-  width: 100%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  font-size: 30px;
+  font-size: 40px;
+  margin-left: 20px;
+  ${mobile({ fontSize: "20px", width: "30%" })}
 `;
 
-const PriceTag = styled.p`
+const PriceTag = styled.span`
   text-align: center;
-  margin-top: 40px;
   font-size: 90px;
+  ${mobile({ fontSize: "32px", marginTop: "0" })}
 `;
 
 const Product = () => {
@@ -159,8 +177,9 @@ const Product = () => {
               <Color bg="red"></Color>
               <Color bg="white"></Color>
             </DescriptionSection>
-            <PriceTag>240$</PriceTag>
+
             <DescriptionSection>
+              <PriceTag>240$</PriceTag>
               <BuyButton>
                 Buy <AddShoppingCartIcon fontSize="medium" />
               </BuyButton>

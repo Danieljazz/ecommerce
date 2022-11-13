@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
+import { mobile } from "../responsive";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -25,6 +26,7 @@ const Title = styled.p`
   top: 0;
   left: 0;
   font-weight: italic;
+  ${mobile({ fontSize: "32px" })}
 `;
 
 const VideoBg = styled.video`
@@ -34,6 +36,7 @@ const VideoBg = styled.video`
   opacity: 0.5;
   z-index: -1;
   transform: scale(1.5);
+  ${mobile({ transform: "scale(1)" })}
 `;
 
 const Input = styled.input`
@@ -41,6 +44,7 @@ const Input = styled.input`
   background: rgba(0, 0, 0, 0.5);
   margin: 12px 12px;
   font-style: italic;
+  ${mobile({ fontSize: "20px" })}
 `;
 
 const FormWrapper = styled.div`
@@ -65,6 +69,7 @@ const Form = styled.form`
 const Agreement = styled.span`
   color: #fff;
   font-size: 20px;
+  ${mobile({ fontSize: "16px", width: "270px" })}
 `;
 
 const SubmitButton = styled.button`
@@ -74,6 +79,7 @@ const SubmitButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  ${mobile({ fontSize: "20px" })}
 `;
 
 const Register = () => {
@@ -99,7 +105,7 @@ const Register = () => {
             in accordance with the PRIVACY POLICY
           </Agreement>
           <SubmitButton>
-            Create <AddIcon fontSize="large" />
+            Create <AddIcon fontSize="40px" />
           </SubmitButton>
         </FormWrapper>
       </Wrapper>

@@ -2,19 +2,20 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ProductTile from "../components/ProductTile";
-import { categories } from "../data";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { mobile } from "../responsive";
 const Container = styled.div`
   position: relative;
   background-color: #97a396;
+  overflow: hidden;
 `;
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
-  margin-bottom: 80px;
+  margin-bottom: 20px;
+  ${mobile({ flexDirection: "column", alignItems: "center" })}
 `;
 const PageTitle = styled.div`
   position: relative;
@@ -22,6 +23,7 @@ const PageTitle = styled.div`
   left: 0;
   font-size: 60px;
   color: #fff;
+  ${mobile({ fontSize: "32px" })};
 `;
 const Button = styled.button`
   margin-left: 30px;
@@ -29,28 +31,35 @@ const Button = styled.button`
   font-size: 20px;
   display: flex;
   align-items: center;
+  ${mobile({ fontSize: "14px" })};
 `;
 const ProductsContainer = styled.div`
   flex: 2;
   margin: 20px 30px;
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 100px;
+  ${mobile({ marginBottom: "0px" })}
 `;
 const ProductContainer = styled.div`
   width: 100%;
-  height: 400px;
+  padding-bottom: 20px;
+  padding-top: 80px;
   border-bottom: 1px solid #fff;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  ${mobile({
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    display: "content",
+  })}
 `;
 
 const ProductImage = styled.img`
-  flex: 1;
-  width: 200px;
   height: 200px;
-  object-fit: cover;
+  width: 200px;
   border-radius: 50%;
+  ${mobile({ borderRadius: "50%", width: "125px", height: "125px" })}
 `;
 
 const ProductSummary = styled.div`
@@ -59,6 +68,7 @@ const ProductSummary = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-left: 120px;
+  ${mobile({ paddingLeft: "0", marginBottom: "20px" })}
 `;
 const ProductProp = styled.span`
   font-size: 20px;
@@ -84,6 +94,7 @@ const ProductPrice = styled.div`
 `;
 const Price = styled.span`
   font-size: 40px;
+  ${mobile({ marginTop: "20px", fontSize: "20px" })}
 `;
 const Qunatity = styled.div`
   font-size: 20px;
@@ -92,6 +103,7 @@ const Qunatity = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100px;
+  ${mobile({ fontSize: "14px" })}
 `;
 const SummaryContainer = styled.div`
   flex: 1;
@@ -103,13 +115,17 @@ const SummaryContainer = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  ${mobile({ border: "none", fontSize: "20px" })}
 `;
 const SummaryTitle = styled.span`
   color: #fff;
   font-size: 30px;
+  padding-bottom: 20px;
+  padding-top: 20px;
 `;
 const SummaryItem = styled.span`
   font-size: 20px;
+  padding-top: 10px;
 `;
 
 const CheckoutButton = styled.button`
@@ -122,6 +138,7 @@ const CheckoutButton = styled.button`
   cursor: pointer;
   position: relative;
   z-index: 0;
+  ${mobile({ fontSize: "20px" })};
 `;
 
 const Cart = () => {
@@ -130,7 +147,7 @@ const Cart = () => {
       <Navbar></Navbar>
       <PageTitle>[Cart]</PageTitle>
       <Button>
-        <ArrowBackIosNewIcon fontSize="large" />
+        <ArrowBackIosNewIcon fontSize="20px" />
         Back to shopping
       </Button>
       <Wrapper>
@@ -147,8 +164,8 @@ const Cart = () => {
             </ProductSummary>
             <ProductPrice>
               <Qunatity>
-                <RemoveIcon fontSize="large" />
-                1<AddIcon fontSize="large" />
+                <RemoveIcon fontSize="20px" />
+                1<AddIcon fontSize="20px" />
               </Qunatity>
               <Price>400$</Price>
             </ProductPrice>
@@ -163,8 +180,8 @@ const Cart = () => {
             </ProductSummary>
             <ProductPrice>
               <Qunatity>
-                <RemoveIcon fontSize="large" />
-                1<AddIcon fontSize="large" />
+                <RemoveIcon fontSize="20px" />
+                1<AddIcon fontSize="20px" />
               </Qunatity>
               <Price>1200$</Price>
             </ProductPrice>
