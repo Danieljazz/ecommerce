@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User");
 const cryptoJS = require("crypto-js");
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 dotenv.config();
 
 // REGISTER
@@ -9,7 +10,10 @@ router.post("/register", (req, res) => {
   const newUser = new User({
     username: req.body.username,
     mail: req.body.mail,
-    password: cryptoJS.AES.encrypt(req.body.password, process.env.YWQ39Usa),
+    password: cryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.YWQ39Usa,
+    ).toString(),
   });
   newUser
     .save()
@@ -39,7 +43,12 @@ router.post("/login", async (req, res) => {
     if (OriginalPassword !== req.body.password)
       return res.status(401).json("Wrong credentials");
     const { password, ...others } = user._doc; // prevent password send, getting only document so doc
-    res.status(200).json(others);
+    const accessToken = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.EcHmnmt8,
+      { expiresIn: "3d" },
+    );
+    res.status(200).json({ ...others, accessToken });
   } catch (error) {
     res.status(500).json(error);
   }
