@@ -43,6 +43,7 @@ router.post("/login", async (req, res) => {
     if (OriginalPassword !== req.body.password)
       return res.status(401).json("Wrong credentials");
     const { password, ...others } = user._doc; // prevent password send, getting only document so doc
+    //creating JWT token based on user id and isAdmin
     const accessToken = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
       process.env.EcHmnmt8,
