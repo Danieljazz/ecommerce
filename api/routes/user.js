@@ -41,7 +41,7 @@ router.get("/:id", verifyTokenAndAdmin, (req, res) => {
 //GetAllUsers
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
-  const usercount = req.query.usercount;
+  const usercount = req.query.usercount ? req.query.usercount : 2;
   try {
     const data = query
       ? await User.find().sort({ createdAt: -1 }).limit(usercount)
