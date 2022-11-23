@@ -12,7 +12,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //GET PRODUCT
-router.get("/:id", async (req, res) => {
+router.get("/:id", (req, res) => {
   Product.findById(req.params.id)
     .then((value) => res.status(200).json(value))
     .catch((err) => res.status(500).json(err));

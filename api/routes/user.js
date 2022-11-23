@@ -64,6 +64,6 @@ router.delete("/:id", verifyTokenAndAuthenticate, (req, res) => {
     .catch((error) => res.status(500).json(error));
 });
 
-//GET USER STATS
+//TODO: GET USER STATS
 
 module.exports = router;
