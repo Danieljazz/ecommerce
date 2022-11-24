@@ -46,7 +46,11 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     const data = query
       ? await User.find().sort({ createdAt: -1 }).limit(usercount)
       : await User.find();
-    res.status(200).json(data);
+    const foramtedData = data.map((x) => {
+      const { password, isAdmin, ...others } = x._doc;
+      return others;
+    });
+    res.status(200).json(foramtedData);
   } catch (err) {
     res.status(500).json(err);
   }
