@@ -21,10 +21,11 @@ const OrderSchema = new mongoose.Schema(
         },
       },
     ],
+    amout: { type: Number, require: true },
     address: { type: Object, require: true },
     orderStatus: { type: String, default: "pending" },
   },
-  { timestap: true },
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Order", OrderSchema);

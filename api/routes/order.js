@@ -15,7 +15,7 @@ router.post("/", verifyTokenAndAuthenticate, (req, res) => {
 });
 
 //GET USER ORDERS
-router.get("/:userId", verifyTokenAndAuthenticate, (req, res) => {
+router.get("/find/:userId", verifyTokenAndAuthenticate, (req, res) => {
   Order.find({ userId: req.params.userId })
     .then((value) => res.status(200).json(value))
     .catch((err) => res.status(500).json(err));
@@ -43,5 +43,16 @@ router.delete("/:id", verifyTokenAndAdmin, (req, res) => {
 });
 
 // GET INCOME
+router.get("/income", verifyTokenAndAdmin, (req, res) => {
+  const date = new Date();
+  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
+  Order.aggregate([
+    { $match: { createdAt: { $gte: lastMonth } } },
+    { $project: { month: { $month: "$createdAt" }, sales: "$amount" } },
+    { $group: { _id: "$month", total: { $sum: "$sales" } } },
+  ])
+    .then((value) => res.status(200).json(value))
+    .catch((err) => res.status(500).json(err));
+});
 
 module.exports = router;

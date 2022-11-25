@@ -8,7 +8,7 @@ const {
 const router = require("express").Router();
 
 //UserEdit
-router.put("/:id", verifyTokenAndAuthenticate, async (req, res) => {
+router.put("/find/:id", verifyTokenAndAuthenticate, async (req, res) => {
   if (req.body.password) {
     req.body.password = cryptoJs.AES.encrypt(
       req.body.password,
@@ -29,7 +29,7 @@ router.put("/:id", verifyTokenAndAuthenticate, async (req, res) => {
 });
 
 //get user by id
-router.get("/:id", verifyTokenAndAdmin, (req, res) => {
+router.get("/find/:id", verifyTokenAndAdmin, (req, res) => {
   User.findById(req.params.id)
     .then((value) => {
       const { password, ...others } = value._doc;
@@ -39,7 +39,7 @@ router.get("/:id", verifyTokenAndAdmin, (req, res) => {
 });
 
 //GetAllUsers
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
+router.get("/find/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
   const usercount = req.query.usercount ? req.query.usercount : 2;
   try {
@@ -62,12 +62,34 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //DeleteUsers
-router.delete("/:id", verifyTokenAndAuthenticate, (req, res) => {
+router.delete("/find/:id", verifyTokenAndAuthenticate, (req, res) => {
   User.findByIdAndDelete(req.params.id)
     .then(() => res.status(200).json("User deleted"))
     .catch((error) => res.status(500).json(error));
 });
 
-//TODO: GET USER STATS
+//TODO: GET USER STATS PER MONTH
+router.get("/stats", verifyTokenAndAdmin, (req, res) => {
+  const date = new Date();
+  const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+  User.aggregate([
+    { $match: { createdAt: { $gte: lastYear } } },
+    {
+      $project: {
+        month: { $month: "$createdAt" },
+      },
+    },
+    {
+      $group: {
+        _id: "$month",
+        total: { $sum: 1 },
+      },
+    },
+  ])
+    .then((value) => {
+      res.status(200).json(value);
+    })
+    .catch((err) => res.status(500).json(err));
+});
 
 module.exports = router;
