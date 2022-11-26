@@ -1,7 +1,7 @@
 import React from "react";
-import Product from "./pages/Product";
+import Pay from "./pages/Pay";
 
 const App = () => {
-  return <Product />;
+  return <Pay />;
 };
 export default App;
