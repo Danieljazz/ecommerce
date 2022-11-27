@@ -46,9 +46,9 @@ const Center = styled.div`
 const Right = styled.div`
   flex: 1;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
-  ${mobile({ justifyContent: "space-around" })};
+  /* ${mobile({ justifyContent: "space-around" })}; */
 `;
 
 const SearchBar = styled.div`

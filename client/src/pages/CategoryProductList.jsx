@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import Announcemenet from "../components/Announcement";
 import { hotProducts } from "../data";
 import { mobile } from "../responsive";
-
+import { useLocation } from "react-router";
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -59,7 +59,8 @@ const ProductContainer = styled.div`
 `;
 
 const CategoryProductList = () => {
-  const chosenCategory = "Accessories";
+  const location = useLocation();
+  const chosenCategory = location.pathname.split("/")[2];
 
   return (
     <Container>

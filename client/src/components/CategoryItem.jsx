@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   width: 30%;
   height: 80%;
@@ -37,6 +38,7 @@ const Description = styled.p`
 
 const Button = styled.button`
   z-index: 2;
+  cursor: pointer;
 `;
 
 const Info = styled.div`
@@ -52,11 +54,14 @@ const Info = styled.div`
 const CategoryItem = ({ item }) => {
   return (
     <Container>
-      <Image src={item.imgSrc}></Image>
-      <Info>
-        <Description>{item.desc}</Description>
-        <Button>Click for more</Button>
-      </Info>
+      <Link to={`/products/${item.desc}`} style={{ display: "contents" }}>
+        <Image src={item.imgSrc}></Image>
+
+        <Info>
+          <Description>{item.desc}</Description>
+          <Button>Click for more</Button>
+        </Info>
+      </Link>
     </Container>
   );
 };
