@@ -7,13 +7,14 @@ import Announcemenet from "../components/Announcement";
 import { hotProducts } from "../data";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router";
+import { useState, useEffect } from "react";
+import axios from "axios";
 const Container = styled.div`
   position: relative;
   width: 100%;
 `;
 
 const PageTitle = styled.div`
-  position: absoulte;
   top: 0;
   left: 0;
   font-size: 60px;
@@ -61,7 +62,25 @@ const ProductContainer = styled.div`
 const CategoryProductList = () => {
   const location = useLocation();
   const chosenCategory = location.pathname.split("/")[2];
+  const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState("new");
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const products = await axios.get("http://localhost:5000/api/products/");
+        setProducts(products.data);
+      } catch (err) {}
+    };
+    getProducts();
+  }, [filter]);
+  console.log(products);
+  const filterHandler = (e) => {
+    setFilter({ ...filter, [e.target.name]: e.target.value });
+  };
+  console.log(filter);
   return (
     <Container>
       <Announcemenet></Announcemenet>
@@ -71,7 +90,7 @@ const CategoryProductList = () => {
         <FilterContainer>
           <Filter>
             Filter by
-            <Select>
+            <Select name="color" onClick={filterHandler}>
               <Option disabled selected>
                 Color
               </Option>
@@ -83,7 +102,7 @@ const CategoryProductList = () => {
             </Select>
             <Filter>
               or
-              <Select>
+              <Select name="size" onClick={filterHandler}>
                 <Option disabled selected>
                   Size
                 </Option>
@@ -98,11 +117,11 @@ const CategoryProductList = () => {
 
           <Filter>
             Sort by
-            <Select>
-              <Option>Price ascending</Option>
-              <Option>Price descending</Option>
-              <Option>Alphabetical A{"->"}Z</Option>
-              <Option>Alphabetical Z{"->"}A</Option>
+            <Select onClick={(e) => setSort(e.target.value)}>
+              <Option value="new">Newest</Option>
+              <Option value="old">Oldest</Option>
+              <Option value="asc">Price ascending</Option>
+              <Option value="desc">Price descending</Option>
             </Select>
           </Filter>
         </FilterContainer>
