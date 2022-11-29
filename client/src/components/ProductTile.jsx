@@ -51,8 +51,8 @@ const Image = styled.img`
 const ProductTile = ({ item }) => {
   return (
     <Container>
-      <Image src={item.imgSrc}></Image>
-      <Description>{item.desc}</Description>
+      <Image src={item.img}></Image>
+      <Description>{item.title}</Description>
     </Container>
   );
 };

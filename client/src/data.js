@@ -30,63 +30,57 @@ export const categories = [
     id: 0,
     imgSrc:
       "https://images.unsplash.com/photo-1574201635302-388dd92a4c3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
-    desc: "Sweaters",
+    desc: "sweaters",
   },
   {
     id: 1,
     imgSrc:
       "https://images.unsplash.com/photo-1512068549487-5e79d74c7fc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    desc: "Jackets",
+    desc: "jackets",
   },
   {
     id: 2,
     imgSrc:
       "https://images.unsplash.com/photo-1557022971-af40cfaf8f80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
-    desc: "Accessories",
+    desc: "accessories",
   },
 ];
 
 export const hotProducts = [
   {
     id: 0,
-    imgSrc:
-      "https://images.unsplash.com/photo-1560060141-7b9018741ced?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=879&q=80",
-    desc: "Sweater Anna",
+    img: "https://images.unsplash.com/photo-1560060141-7b9018741ced?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=879&q=80",
+    title: "Sweater Anna",
     category: "Sweaters",
   },
   {
     id: 1,
-    imgSrc:
-      "https://images.unsplash.com/photo-1604176354204-9268737828e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    desc: "Jeansier",
+    img: "https://images.unsplash.com/photo-1604176354204-9268737828e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
+    title: "Jeansier",
     category: "Trouseres",
   },
   {
     id: 2,
-    imgSrc:
-      "https://images.unsplash.com/photo-1630396592061-21f071e1a36c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-    desc: "Bag?",
+    img: "https://images.unsplash.com/photo-1630396592061-21f071e1a36c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
+    title: "Bag?",
     category: "Accessories",
   },
   {
     id: 3,
-    imgSrc:
-      "https://images.unsplash.com/photo-1626122760325-4b28cd7ee6a4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    desc: "Momo",
+    img: "https://images.unsplash.com/photo-1626122760325-4b28cd7ee6a4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    title: "Momo",
     category: "Accessories",
   },
   {
     id: 4,
-    imgSrc:
-      "https://images.unsplash.com/photo-1664542496645-958567bf6b11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
-    desc: "DS",
+    img: "https://images.unsplash.com/photo-1664542496645-958567bf6b11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
+    title: "DS",
     category: "Dresses",
   },
   {
     id: 5,
-    imgSrc:
-      "https://images.unsplash.com/photo-1663428494415-d42a8982f60b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    desc: "l' odeurs",
+    img: "https://images.unsplash.com/photo-1663428494415-d42a8982f60b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    title: "l' odeurs",
     category: "Perfume",
   },
 ];
