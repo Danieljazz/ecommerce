@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar";
 import ProductTile from "../components/ProductTile";
 import Footer from "../components/Footer";
 import Announcemenet from "../components/Announcement";
-import { hotProducts } from "../data";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
@@ -61,26 +60,45 @@ const ProductContainer = styled.div`
 
 const CategoryProductList = () => {
   const location = useLocation();
-  const chosenCategory = location.pathname.split("/")[2];
-  const [filter, setFilter] = useState({});
+  const chosenCategory = location.pathname.split("/")[2].toLowerCase();
+  const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("new");
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
+  //TODO: ADD SORTING
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const products = await axios.get("http://localhost:5000/api/products/");
-        setProducts(products.data);
+        const res = await axios.get(
+          chosenCategory
+            ? `http://localhost:5000/api/products/?category=${chosenCategory}`
+            : "http://localhost:5000/api/products",
+        );
+        setProducts(res.data);
       } catch (err) {}
     };
     getProducts();
-  }, [filter]);
-  console.log(products);
+    setFilteredProducts(products);
+  }, []);
+
+  useEffect(() => setFilteredProducts(products), [products]);
+
+  useEffect(() => {
+    setFilteredProducts(
+      products.filter((item) =>
+        Object.entries(filters).every(([key, value]) =>
+          item[key].includes(value.toLowerCase()),
+        ),
+      ),
+    );
+  }, [filters]);
+
+  console.log("products: ", products);
   const filterHandler = (e) => {
-    setFilter({ ...filter, [e.target.name]: e.target.value });
+    setFilters({ ...filters, [e.target.name]: e.target.value });
   };
-  console.log(filter);
+  console.log("Filtered products", filteredProducts);
   return (
     <Container>
       <Announcemenet></Announcemenet>
@@ -126,8 +144,8 @@ const CategoryProductList = () => {
           </Filter>
         </FilterContainer>
         <ProductContainer>
-          {hotProducts.map((item) => {
-            if (item.category === chosenCategory) {
+          {filteredProducts.map((item) => {
+            if (item.inStock) {
               return <ProductTile item={item}></ProductTile>;
             }
           })}
