@@ -8,6 +8,7 @@ import { mobile } from "../responsive";
 import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -94,11 +95,39 @@ const CategoryProductList = () => {
     );
   }, [filters]);
 
-  console.log("products: ", products);
+  useEffect(() => {
+    console.log(sort);
+    switch (sort) {
+      case "new":
+        setFilteredProducts((prevFilt) =>
+          [...prevFilt].sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1)),
+        );
+        console.log(filteredProducts);
+        break;
+      case "old":
+        setFilteredProducts((prevFilt) =>
+          [...prevFilt].sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)),
+        );
+        console.log(filteredProducts);
+        break;
+      case "asc":
+        setFilteredProducts((prev) =>
+          [...prev].sort((a, b) => a.price - b.price),
+        );
+        console.log(filteredProducts);
+        break;
+      case "desc":
+        setFilteredProducts((prev) =>
+          [...prev].sort((a, b) => b.price - a.price),
+        );
+    }
+  }, [sort]);
+
+  //console.log("products: ", products);
   const filterHandler = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
-  console.log("Filtered products", filteredProducts);
+  //console.log("Filtered products", filteredProducts);
   return (
     <Container>
       <Announcemenet></Announcemenet>
@@ -140,15 +169,32 @@ const CategoryProductList = () => {
               <Option value="old">Oldest</Option>
               <Option value="asc">Price ascending</Option>
               <Option value="desc">Price descending</Option>
+              <Option value="az">Alphabetical A-Z</Option>
+              <Option value="za">Alphabetical Z-A</Option>
             </Select>
           </Filter>
         </FilterContainer>
+
         <ProductContainer>
-          {filteredProducts.map((item) => {
-            if (item.inStock) {
-              return <ProductTile item={item}></ProductTile>;
-            }
-          })}
+          {filteredProducts.length !== 0 ? (
+            filteredProducts.map((item) => {
+              if (item.inStock) {
+                return <ProductTile item={item}></ProductTile>;
+              }
+            })
+          ) : (
+            <div
+              style={{
+                height: "34vh",
+                fontSize: "50px",
+                display: "flex",
+                justifyContent: "center",
+                color: "white",
+              }}
+            >
+              Nothing here
+            </div>
+          )}
         </ProductContainer>
       </ItemsWrapper>
       <Footer></Footer>

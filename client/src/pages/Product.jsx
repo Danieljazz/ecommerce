@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { useState } from "react";
 import { productSliderItems } from "../data";
 import { mobile } from "../responsive";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+
 const Container = styled.div`
   width: 100%;
   background-color: ${(props) =>
@@ -44,7 +46,7 @@ const ProductImgContainer = styled.div`
 const Image = styled.img`
   width: 90%;
   height: 90%;
-  object-fit: cover;
+  object-fit: contain;
   transition: all 1s ease;
 `;
 const Video = styled.video`
@@ -106,7 +108,7 @@ const Arrow = styled.div`
 `;
 
 const BuyButton = styled.button`
-  width: 50%;
+  width: 20%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -118,10 +120,34 @@ const BuyButton = styled.button`
 const PriceTag = styled.span`
   text-align: center;
   font-size: 90px;
+  margin-right: 20px;
   ${mobile({ fontSize: "32px", marginTop: "0" })}
 `;
 
 const Product = () => {
+  const pId = useLocation();
+  const productId = pId.pathname.split("/")[2];
+  const [product, setProduct] = useState({
+    size: [],
+    color: [],
+    category: [],
+  });
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/products/${productId}`,
+        );
+        console.log(res);
+        setProduct(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProduct();
+    console.log(product);
+  }, []);
+
   const [imgIndex, setImgIndex] = useState(0);
   const ArrowHandler = (dir) => {
     if (dir === "+") {
@@ -134,21 +160,21 @@ const Product = () => {
   return (
     <Container bg={productSliderItems[0].bg}>
       <Navbar></Navbar>
-      <PageTitle>[Product][DS]</PageTitle>
+      <PageTitle>[Product][{product.title}]</PageTitle>
       <ProductContainer>
         <ProductImgContainer>
           <Arrow onClick={() => ArrowHandler("-")}>
             <KeyboardArrowLeftIcon fontSize="large" />
           </Arrow>
-          {productSliderItems[imgIndex].type === "img" ? (
-            <Image src={productSliderItems[imgIndex].imgSrc}></Image>
-          ) : (
+          {productSliderItems[imgIndex].type === "video" ? (
             <Video
               autoPlay
               loop
               muted
               src={productSliderItems[imgIndex].imgSrc}
             ></Video>
+          ) : (
+            <Image src={product.img}></Image>
           )}
           <Arrow onClick={() => ArrowHandler("+")}>
             <KeyboardArrowRightIcon fontSize="large" />
@@ -156,30 +182,24 @@ const Product = () => {
         </ProductImgContainer>
         <ProductDescription>
           <Description>
-            <DescriptionContent>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum
-              odit facilis fugiat maiores voluptatum quos. Dolorem voluptatem
-              saepe iure tempore.
-            </DescriptionContent>
+            <DescriptionContent>{product.description}</DescriptionContent>
             <DescriptionSection>
               <DescriptionContent>Choose size:</DescriptionContent>
               <Sizes>
-                <Size size="20px">XXS</Size>
-                <Size size="24px">XS</Size>
-                <Size size="28px">S</Size>
-                <Size size="32px">M</Size>
-                <Size size="36px">L</Size>
+                {product.size.map((size) => (
+                  <Size>{size.toUpperCase()}</Size>
+                ))}
               </Sizes>
             </DescriptionSection>
             <DescriptionSection>
               <DescriptionContent>Choose color: </DescriptionContent>
-              <Color bg="black"></Color>
-              <Color bg="red"></Color>
-              <Color bg="white"></Color>
+              {product.color.map((color) => {
+                return <Color bg={color}></Color>;
+              })}
             </DescriptionSection>
 
             <DescriptionSection>
-              <PriceTag>240$</PriceTag>
+              <PriceTag>{product.price}$</PriceTag>
               <BuyButton>
                 Buy <AddShoppingCartIcon fontSize="medium" />
               </BuyButton>

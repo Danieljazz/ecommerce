@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProductTile from "./ProductTile";
 import { hotProducts } from "../data";
 import { mobile } from "../responsive";
+import axios from "axios";
 const Container = styled.div`
   background: #1b5093;
   display: flex;
@@ -12,7 +13,7 @@ const Container = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
-  padding-top: 40px;
+  padding-top: 100px;
 `;
 
 const Title = styled.p`
@@ -27,10 +28,24 @@ const Title = styled.p`
 `;
 
 const HotProducts = () => {
+  const [products, setProducts] = useState([{}]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/products");
+        setProducts(res.data.slice(4, 8));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProducts();
+  }, []);
+
   return (
     <Container>
       <Title>[Hot Products]</Title>
-      {hotProducts.map((item) => (
+      {products.map((item) => (
         <ProductTile item={item}></ProductTile>
       ))}
     </Container>

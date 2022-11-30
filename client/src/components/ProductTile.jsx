@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 const Description = styled.p`
   opacity: 1;
   z-index: 1;
@@ -50,10 +50,12 @@ const Image = styled.img`
 
 const ProductTile = ({ item }) => {
   return (
-    <Container>
-      <Image src={item.img}></Image>
-      <Description>{item.title}</Description>
-    </Container>
+    <Link to={`/product/${item._id}`}>
+      <Container>
+        <Image src={item.img}></Image>
+        <Description>{item.title}</Description>
+      </Container>
+    </Link>
   );
 };
 

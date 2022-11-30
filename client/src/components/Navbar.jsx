@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@mui/material";
 import { mobile } from "../responsive";
-import { height } from "@mui/system";
+import { Link } from "react-router-dom";
 const NavbarWrapper = styled.div`
   padding: 10px 20px;
   display: flex;
@@ -73,10 +73,11 @@ const Language = styled.span`
 const Logo = styled.span`
   font-weight: bold;
   font-size: 40px;
+  text-decoration: none;
   ${mobile({ display: "flex", alignItems: "center" })}
 `;
 
-const MenuItem = styled.button`
+const MenuItem = styled.div`
   border: none;
   background: transparent;
   font-size: 20px;
@@ -94,15 +95,33 @@ const Navbar = () => {
         </SearchBar>
       </Left>
       <Center>
-        <Logo>Neobonk.</Logo>
+        <Link style={{ textDecoration: "none", color: "black" }} to={"/"}>
+          <Logo>Neobonk.</Logo>
+        </Link>
       </Center>
       <Right>
-        <MenuItem>SignIn</MenuItem>
-        <MenuItem>Register</MenuItem>
         <MenuItem>
-          <Badge badgeContent={4} color="primary">
-            <ShoppingCartIcon />
-          </Badge>
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to={"/login"}
+          >
+            LogIn
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to={"/register"}
+          >
+            Register
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link style={{ textDecoration: "none", color: "black" }} to={"/cart"}>
+            <Badge badgeContent={4} color="primary">
+              <ShoppingCartIcon />
+            </Badge>
+          </Link>
         </MenuItem>
       </Right>
     </NavbarWrapper>

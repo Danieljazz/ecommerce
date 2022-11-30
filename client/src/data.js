@@ -36,7 +36,7 @@ export const categories = [
     id: 1,
     imgSrc:
       "https://images.unsplash.com/photo-1512068549487-5e79d74c7fc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    desc: "jackets",
+    desc: "woman",
   },
   {
     id: 2,
@@ -87,16 +87,16 @@ export const hotProducts = [
 
 export const productSliderItems = [
   {
-    id: 0,
-    imgSrc:
-      "https://assets.mixkit.co/videos/preview/mixkit-winter-fashion-cold-looking-woman-concept-video-39874-large.mp4",
-    type: "video",
-    bg: "#5a83a1",
-  },
-  {
     id: 1,
     imgSrc:
       "https://images.unsplash.com/photo-1664542496645-958567bf6b11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
     type: "img",
+  },
+  {
+    id: 2,
+    imgSrc:
+      "https://assets.mixkit.co/videos/preview/mixkit-winter-fashion-cold-looking-woman-concept-video-39874-large.mp4",
+    type: "video",
+    bg: "#5a83a1",
   },
 ];
