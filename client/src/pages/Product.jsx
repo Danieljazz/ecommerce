@@ -36,7 +36,7 @@ const ProductContainer = styled.div`
   })}
 `;
 const ProductImgContainer = styled.div`
-  width: 70%;
+  width: 60%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -56,7 +56,7 @@ const Video = styled.video`
   transition: all 1s ease;
 `;
 const ProductDescription = styled.div`
-  width: 30%;
+  width: 40%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -108,7 +108,7 @@ const Arrow = styled.div`
 `;
 
 const BuyButton = styled.button`
-  width: 20%;
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -127,11 +127,9 @@ const PriceTag = styled.span`
 const Product = () => {
   const pId = useLocation();
   const productId = pId.pathname.split("/")[2];
-  const [product, setProduct] = useState({
-    size: [],
-    color: [],
-    category: [],
-  });
+  const [product, setProduct] = useState({});
+  const [chosenSize, setChosenSize] = useState();
+  const [chosenColor, setChosenColor] = useState();
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -148,6 +146,8 @@ const Product = () => {
     console.log(product);
   }, []);
 
+  useEffect(() => console.log(chosenSize), [chosenSize]);
+
   const [imgIndex, setImgIndex] = useState(0);
   const ArrowHandler = (dir) => {
     if (dir === "+") {
@@ -158,12 +158,13 @@ const Product = () => {
   };
 
   return (
-    <Container bg={productSliderItems[0].bg}>
+    <Container bg={product?.bg}>
       <Navbar></Navbar>
       <PageTitle>[Product][{product.title}]</PageTitle>
       <ProductContainer>
         <ProductImgContainer>
-          <Arrow onClick={() => ArrowHandler("-")}>
+          <Image src={product.img}></Image>
+          {/* <Arrow onClick={() => ArrowHandler("-")}>
             <KeyboardArrowLeftIcon fontSize="large" />
           </Arrow>
           {productSliderItems[imgIndex].type === "video" ? (
@@ -178,23 +179,33 @@ const Product = () => {
           )}
           <Arrow onClick={() => ArrowHandler("+")}>
             <KeyboardArrowRightIcon fontSize="large" />
-          </Arrow>
+          </Arrow> */}
         </ProductImgContainer>
         <ProductDescription>
           <Description>
             <DescriptionContent>{product.description}</DescriptionContent>
             <DescriptionSection>
               <DescriptionContent>Choose size:</DescriptionContent>
-              <Sizes>
-                {product.size.map((size) => (
-                  <Size>{size.toUpperCase()}</Size>
+              <Sizes
+                onChange={(e) => {
+                  setChosenSize(e.target.value);
+                }}
+              >
+                {product.size?.map((size) => (
+                  <Size key={size}>{size.toUpperCase()}</Size>
                 ))}
               </Sizes>
             </DescriptionSection>
             <DescriptionSection>
               <DescriptionContent>Choose color: </DescriptionContent>
-              {product.color.map((color) => {
-                return <Color bg={color}></Color>;
+              {product.color?.map((color) => {
+                return (
+                  <Color
+                    key={color}
+                    bg={color}
+                    onClick={() => setChosenColor(color)}
+                  ></Color>
+                );
               })}
             </DescriptionSection>
 
