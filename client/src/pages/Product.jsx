@@ -9,6 +9,8 @@ import { productSliderItems } from "../data";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartRedux";
 
 const Container = styled.div`
   width: 100%;
@@ -130,6 +132,12 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [chosenSize, setChosenSize] = useState();
   const [chosenColor, setChosenColor] = useState();
+  const dispatch = useDispatch();
+  const price = product.price;
+  const addButtonHandle = () => {
+    dispatch(addProduct({ product, price }));
+  };
+
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -211,7 +219,7 @@ const Product = () => {
 
             <DescriptionSection>
               <PriceTag>{product.price}$</PriceTag>
-              <BuyButton>
+              <BuyButton onClick={addButtonHandle}>
                 Buy <AddShoppingCartIcon fontSize="medium" />
               </BuyButton>
             </DescriptionSection>
