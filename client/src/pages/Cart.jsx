@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -6,6 +6,9 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 const Container = styled.div`
   position: relative;
   background-color: #97a396;
@@ -15,7 +18,8 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   margin-bottom: 20px;
-  ${mobile({ flexDirection: "column", alignItems: "center" })}
+  ${mobile({ flexDirection: "column", alignItems: "center" })};
+  height: 57vh;
 `;
 const PageTitle = styled.div`
   position: relative;
@@ -142,56 +146,105 @@ const CheckoutButton = styled.button`
 `;
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  const [reducedCart, setReducedCart] = useState([{}]);
+  const listedProducts = [];
+  const isProductEquals = (object1, object2) => {
+    return (
+      object1._id == object2._id &&
+      object1.chosenColor == object2.chosenColor &&
+      object1.chosenSize == object1.chosenSize
+    );
+  };
+
+  useEffect(() => {
+    let reducedList = [{}];
+    const reduceProducts = () => {
+      cart.products.forEach((product) => {
+        const { _id, chosenColor, chosenSize, productQuantity } = product;
+        const newObject = { _id, chosenColor, chosenSize };
+        // const reducedIndex = reducedList.forEach((reducedItem, index) => {
+        //   if (isProductEquals(newObject, reducedItem)) {
+        //     return index;
+        //   } else {
+        //     return -1;
+        //   }
+        // });
+        // reducedIndex >= 0
+        let reducedIndex = reducedList.indexOf(
+          reducedList.find(
+            (product) =>
+              product._id === _id &&
+              product.chosenColor === chosenColor &&
+              product.chosenSize === chosenSize,
+          ),
+        );
+        console.log(reducedIndex);
+        // reducedList.some(
+        //   (product) =>
+        //     product._id === _id &&
+        //     product.chosenColor === chosenColor &&
+        //     product.chosenSize === chosenSize,
+        // )
+        reducedIndex >= 0
+          ? (reducedList[reducedIndex].productQuantity += 1)
+          : reducedList.push({ ...product });
+      });
+    };
+    reduceProducts();
+    setReducedCart(reducedList);
+  }, [cart]);
+  console.log(reducedCart);
   return (
     <Container>
       <Navbar></Navbar>
       <PageTitle>[Cart]</PageTitle>
-      <Button>
-        <ArrowBackIosNewIcon fontSize="20px" />
-        Back to shopping
-      </Button>
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <Button>
+          <ArrowBackIosNewIcon fontSize="20px" />
+          Back to shopping
+        </Button>
+      </Link>
       <Wrapper>
         <ProductsContainer>
-          <ProductContainer>
-            <ProductImage src="https://images.unsplash.com/photo-1574201635302-388dd92a4c3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"></ProductImage>
-            <ProductSummary>
-              <ProductProp>Product: Sweater Anna</ProductProp>
-              <ProductProp>Id: 92193013290</ProductProp>
-              <ProductProp>Size: M</ProductProp>
-              <ProductProp>
-                Color: <Color bg="red"></Color>
-              </ProductProp>
-            </ProductSummary>
-            <ProductPrice>
-              <Qunatity>
-                <RemoveIcon fontSize="20px" />
-                1<AddIcon fontSize="20px" />
-              </Qunatity>
-              <Price>400$</Price>
-            </ProductPrice>
-          </ProductContainer>
-          <ProductContainer>
-            <ProductImage src="https://images.unsplash.com/photo-1663428494415-d42a8982f60b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"></ProductImage>
-            <ProductSummary>
-              <ProductProp>Product: l' odeurs</ProductProp>
-              <ProductProp>Id: 124123123</ProductProp>
-              <ProductProp>Size: -</ProductProp>
-              <ProductProp>Color: -</ProductProp>
-            </ProductSummary>
-            <ProductPrice>
-              <Qunatity>
-                <RemoveIcon fontSize="20px" />
-                1<AddIcon fontSize="20px" />
-              </Qunatity>
-              <Price>1200$</Price>
-            </ProductPrice>
-          </ProductContainer>
+          {cart.products.length === 0 ? (
+            <div
+              style={{
+                fontSize: "40px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              C'mon add smth
+            </div>
+          ) : (
+            reducedCart.slice(1, reducedCart.length).map((product) => (
+              <ProductContainer>
+                <ProductImage src={product.img}></ProductImage>
+                <ProductSummary>
+                  <ProductProp>Product: {product.title}</ProductProp>
+                  <ProductProp>Id: {product._id}</ProductProp>
+                  <ProductProp>Size: {product.chosenSize}</ProductProp>
+                  <ProductProp>
+                    Color: <Color bg={product.chosenColor}></Color>
+                  </ProductProp>
+                </ProductSummary>
+                <ProductPrice>
+                  <Qunatity>
+                    <RemoveIcon fontSize="20px" />
+                    1<AddIcon fontSize="20px" />
+                  </Qunatity>
+                  <Price>{product.price}$</Price>
+                </ProductPrice>
+              </ProductContainer>
+            ))
+          )}
         </ProductsContainer>
         <SummaryContainer>
           <SummaryTitle>SUMMARY</SummaryTitle>
-          <SummaryItem>Subtotal 1600$</SummaryItem>
+          <SummaryItem>Subtotal {cart.total}$</SummaryItem>
           <SummaryItem>Shipping 10$</SummaryItem>
-          <SummaryTitle>Total 1610$</SummaryTitle>
+          <SummaryTitle>Total {cart.total + 10}$</SummaryTitle>
           <CheckoutButton>CHECKOUT</CheckoutButton>
         </SummaryContainer>
       </Wrapper>

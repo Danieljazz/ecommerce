@@ -67,7 +67,6 @@ const CategoryProductList = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState(products);
 
-  //TODO: ADD SORTING
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -120,8 +119,19 @@ const CategoryProductList = () => {
         setFilteredProducts((prev) =>
           [...prev].sort((a, b) => b.price - a.price),
         );
+        break;
+      case "az":
+        setFilteredProducts((prev) =>
+          [...prev].sort((a, b) => (a.title > b.title ? 1 : -1)),
+        );
+        break;
+      case "za":
+        setFilteredProducts((prev) =>
+          [...prev].sort((a, b) => (a.title < b.title ? 1 : -1)),
+        );
+        break;
     }
-  }, [sort]);
+  }, [, sort]);
 
   //console.log("products: ", products);
   const filterHandler = (e) => {
@@ -161,7 +171,6 @@ const CategoryProductList = () => {
               </Select>
             </Filter>
           </Filter>
-
           <Filter>
             Sort by
             <Select onClick={(e) => setSort(e.target.value)}>
@@ -174,7 +183,6 @@ const CategoryProductList = () => {
             </Select>
           </Filter>
         </FilterContainer>
-
         <ProductContainer>
           {filteredProducts.length !== 0 ? (
             filteredProducts.map((item) => {

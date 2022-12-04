@@ -103,6 +103,7 @@ const Color = styled.div`
   background-color: ${(props) => props.bg};
   margin-left: 20px;
   cursor: pointer;
+  border: ${(props) => (props.isSelected ? "2px solid black" : "none")};
 `;
 
 const Arrow = styled.div`
@@ -130,14 +131,10 @@ const Product = () => {
   const pId = useLocation();
   const productId = pId.pathname.split("/")[2];
   const [product, setProduct] = useState({});
-  const [chosenSize, setChosenSize] = useState();
-  const [chosenColor, setChosenColor] = useState();
+  const [chosenSize, setChosenSize] = useState("-");
+  const [chosenColor, setChosenColor] = useState("-");
   const dispatch = useDispatch();
-  const price = product.price;
-  const addButtonHandle = () => {
-    dispatch(addProduct({ product, price }));
-  };
-
+  const productQuantity = 1;
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -156,6 +153,11 @@ const Product = () => {
 
   useEffect(() => console.log(chosenSize), [chosenSize]);
 
+  const addButtonHandle = () => {
+    dispatch(
+      addProduct({ ...product, chosenSize, chosenColor, productQuantity }),
+    );
+  };
   const [imgIndex, setImgIndex] = useState(0);
   const ArrowHandler = (dir) => {
     if (dir === "+") {
@@ -199,6 +201,7 @@ const Product = () => {
                   setChosenSize(e.target.value);
                 }}
               >
+                <Size>-</Size>
                 {product.size?.map((size) => (
                   <Size key={size}>{size.toUpperCase()}</Size>
                 ))}
@@ -211,7 +214,10 @@ const Product = () => {
                   <Color
                     key={color}
                     bg={color}
-                    onClick={() => setChosenColor(color)}
+                    isSelected={color === chosenColor ? true : false}
+                    onClick={() => {
+                      setChosenColor(color);
+                    }}
                   ></Color>
                 );
               })}
