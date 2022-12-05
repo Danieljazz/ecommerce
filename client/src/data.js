@@ -29,8 +29,8 @@ export const categories = [
   {
     id: 0,
     imgSrc:
-      "https://images.unsplash.com/photo-1574201635302-388dd92a4c3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
-    desc: "sweaters",
+      "https://images.unsplash.com/photo-1669072257062-fc92a408ff8e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    desc: "man",
   },
   {
     id: 1,

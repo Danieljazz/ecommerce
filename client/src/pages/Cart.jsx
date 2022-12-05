@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   display: flex;
   margin-bottom: 20px;
   ${mobile({ flexDirection: "column", alignItems: "center" })};
-  height: 57vh;
+  min-height: 57vh;
 `;
 const PageTitle = styled.div`
   position: relative;
@@ -105,8 +105,8 @@ const Qunatity = styled.div`
   background-color: #fff;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100px;
+  justify-content: center;
+  width: 20px;
   ${mobile({ fontSize: "14px" })}
 `;
 const SummaryContainer = styled.div`
@@ -148,29 +148,12 @@ const CheckoutButton = styled.button`
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [reducedCart, setReducedCart] = useState([{}]);
-  const listedProducts = [];
-  const isProductEquals = (object1, object2) => {
-    return (
-      object1._id == object2._id &&
-      object1.chosenColor == object2.chosenColor &&
-      object1.chosenSize == object1.chosenSize
-    );
-  };
-
   useEffect(() => {
     let reducedList = [{}];
     const reduceProducts = () => {
       cart.products.forEach((product) => {
         const { _id, chosenColor, chosenSize, productQuantity } = product;
         const newObject = { _id, chosenColor, chosenSize };
-        // const reducedIndex = reducedList.forEach((reducedItem, index) => {
-        //   if (isProductEquals(newObject, reducedItem)) {
-        //     return index;
-        //   } else {
-        //     return -1;
-        //   }
-        // });
-        // reducedIndex >= 0
         let reducedIndex = reducedList.indexOf(
           reducedList.find(
             (product) =>
@@ -179,13 +162,6 @@ const Cart = () => {
               product.chosenSize === chosenSize,
           ),
         );
-        console.log(reducedIndex);
-        // reducedList.some(
-        //   (product) =>
-        //     product._id === _id &&
-        //     product.chosenColor === chosenColor &&
-        //     product.chosenSize === chosenSize,
-        // )
         reducedIndex >= 0
           ? (reducedList[reducedIndex].productQuantity += 1)
           : reducedList.push({ ...product });
@@ -194,7 +170,6 @@ const Cart = () => {
     reduceProducts();
     setReducedCart(reducedList);
   }, [cart]);
-  console.log(reducedCart);
   return (
     <Container>
       <Navbar></Navbar>
@@ -231,10 +206,19 @@ const Cart = () => {
                 </ProductSummary>
                 <ProductPrice>
                   <Qunatity>
-                    <RemoveIcon fontSize="20px" />
-                    1<AddIcon fontSize="20px" />
+                    {/* <RemoveIcon
+                      fontSize="20px"
+                      onClick={() => (product.productQuantity -= 1)}
+                      style={{ zIndex: "3", cursor: "pointer" }}
+                    /> */}
+                    {product.productQuantity}
+                    {/* <AddIcon
+                      onClick={() => (product.productQuantity += 1)}
+                      fontSize="20px"
+                      style={{ zIndex: "3", cursor: "pointer" }}
+                    /> */}
                   </Qunatity>
-                  <Price>{product.price}$</Price>
+                  <Price>{product.price * product.productQuantity}$</Price>
                 </ProductPrice>
               </ProductContainer>
             ))
@@ -245,7 +229,17 @@ const Cart = () => {
           <SummaryItem>Subtotal {cart.total}$</SummaryItem>
           <SummaryItem>Shipping 10$</SummaryItem>
           <SummaryTitle>Total {cart.total + 10}$</SummaryTitle>
-          <CheckoutButton>CHECKOUT</CheckoutButton>
+          <StripeCheckout
+            name="Neobonk"
+            shippingAddress
+            billingAddress
+            amount={2000}
+            description={"Youre total is 20$"}
+            token={onToken}
+            stripeKey={KEY}
+          >
+            <CheckoutButton>CHECKOUT</CheckoutButton>
+          </StripeCheckout>
         </SummaryContainer>
       </Wrapper>
       <Footer></Footer>
