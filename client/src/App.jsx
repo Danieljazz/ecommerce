@@ -12,6 +12,7 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
+import Success from "./pages/Success";
 
 const App = () => {
   const user = false;
@@ -27,6 +28,7 @@ const App = () => {
           path="/register"
           element={user ? <Navigate to="/" /> : <Register />}
         />
+        <Route path="/success" element={<Success />} />
       </Routes>
     </Router>
   );

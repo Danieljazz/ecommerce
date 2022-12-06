@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -7,8 +7,9 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
 const Container = styled.div`
   position: relative;
   background-color: #97a396;
@@ -63,6 +64,7 @@ const ProductImage = styled.img`
   height: 200px;
   width: 200px;
   border-radius: 50%;
+  object-fit: cover;
   ${mobile({ borderRadius: "50%", width: "125px", height: "125px" })}
 `;
 
@@ -133,7 +135,7 @@ const SummaryItem = styled.span`
 `;
 
 const CheckoutButton = styled.button`
-  width: 80%;
+  width: 100%;
   font-size: 40px;
   background-color: #000;
   color: #fff;
@@ -146,8 +148,11 @@ const CheckoutButton = styled.button`
 `;
 
 const Cart = () => {
+  const KEY = process.env.REACT_APP_STRIPEPK;
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const [reducedCart, setReducedCart] = useState([{}]);
+  const [stripeToken, setStripeToken] = useState(null);
   useEffect(() => {
     let reducedList = [{}];
     const reduceProducts = () => {
@@ -170,6 +175,27 @@ const Cart = () => {
     reduceProducts();
     setReducedCart(reducedList);
   }, [cart]);
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  useEffect(() => {
+    const makePaymentReq = async () => {
+      try {
+        const res = axios.post("http://localhost:5000/api/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: (cart.total + 10) * 100,
+        });
+        console.log(res);
+        navigate("/success", { data: res.data });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    stripeToken && cart.total >= 1 && makePaymentReq();
+  }, [stripeToken, cart.total, navigate]);
+
   return (
     <Container>
       <Navbar></Navbar>
@@ -233,8 +259,8 @@ const Cart = () => {
             name="Neobonk"
             shippingAddress
             billingAddress
-            amount={2000}
-            description={"Youre total is 20$"}
+            amount={(cart.total + 10) * 100}
+            description={`Youre total is ${cart.total + 10}$`}
             token={onToken}
             stripeKey={KEY}
           >

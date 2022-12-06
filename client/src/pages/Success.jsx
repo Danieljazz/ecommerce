@@ -1,6 +1,14 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const Success = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      navigate("/");
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div
       style={{
