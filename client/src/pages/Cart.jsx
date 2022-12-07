@@ -187,10 +187,13 @@ const Cart = () => {
           tokenId: stripeToken.id,
           amount: (cart.total + 10) * 100,
         });
-        console.log(res);
-        navigate("/success", { data: res.data });
+        //console.log(res);
+        navigate("/success", {
+          stripeData: res.data,
+          products: cart,
+        });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     };
     stripeToken && cart.total >= 1 && makePaymentReq();
