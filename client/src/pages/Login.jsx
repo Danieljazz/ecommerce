@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import { mobile } from "../responsive";
+import { useState, useEffect } from "react";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -83,6 +84,10 @@ const SubmitButton = styled.button`
   ${mobile({ fontSize: "20px" })}
 `;
 const Login = () => {
+  const [login, setLogin] = useState();
+  const [password, setPassword] = useState();
+
+  const onSubmit = () => {};
   return (
     <Container>
       <VideoBg
