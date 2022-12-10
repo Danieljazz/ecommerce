@@ -3,6 +3,8 @@ import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import { mobile } from "../responsive";
 import { useState, useEffect } from "react";
+import login from "../redux/apiCalls";
+import { useDispatch } from "react-redux";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -45,7 +47,11 @@ const Input = styled.input`
   background: rgba(0, 0, 0, 0.5);
   margin: 12px 12px;
   font-style: italic;
-  ${mobile({ fontSize: "20px" })}
+  color: white;
+  ${mobile({ fontSize: "20px" })};
+  &:focus {
+    color: white;
+  }
 `;
 
 const FormWrapper = styled.div`
@@ -84,10 +90,13 @@ const SubmitButton = styled.button`
   ${mobile({ fontSize: "20px" })}
 `;
 const Login = () => {
-  const [login, setLogin] = useState();
+  const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-
-  const onSubmit = () => {};
+  const dispatch = useDispatch();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    login(dispatch, { username, password });
+  };
   return (
     <Container>
       <VideoBg
@@ -100,12 +109,20 @@ const Login = () => {
       <Wrapper>
         <FormWrapper>
           <Form>
-            <Input type="mail" placeholder="Mail"></Input>
-            <Input type="password" placeholder="Password"></Input>
+            <Input
+              type="text"
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value)}
+            ></Input>
+            <Input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            ></Input>
           </Form>
           <Link>Password lost?</Link>
           <Link>Create Account</Link>
-          <SubmitButton>
+          <SubmitButton onClick={onSubmit}>
             LogIn <LoginIcon fontSize="large" />
           </SubmitButton>
         </FormWrapper>
