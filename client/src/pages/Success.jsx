@@ -6,26 +6,38 @@ import { useLocation } from "react-router";
 const Success = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  //TODO: const data = location.state.stripeData;
-  const cart = useSelector((state) => state.cart);
+  const stripeData = location.state.stripeData;
+  const cart = location.state.cart;
+  const user = useSelector((state) => state.user.currentUser);
+  console.log(location.state);
   useEffect(() => {
     const createOrder = async () => {
       try {
-        const res = await axios.post("http://localhost:5000/api/orders", {
-          //TODO: userId: currentUser._id,
-          products: cart.products.map((product) => ({
-            productId: product._id,
-            quantity: product.quantity,
-            size: product.size,
-            color: product.size,
-          })),
-        });
-      } catch {}
+        const res = await axios.post(
+          "http://localhost:5000/api/orders",
+          {
+            userId: user._id,
+            products: cart.products.map((product) => ({
+              productId: product._id,
+              quantity: product.productQuantity,
+              size: product.chosenSize,
+              color: product.chosenColor,
+            })),
+            amount: cart.total,
+            address: stripeData.billing_details.address,
+          },
+          { headers: { token: `Bearer ${user.accessToken}` } },
+        );
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
     };
+    createOrder();
     const interval = setInterval(() => {
       navigate("/");
     }, 3000);
-    createOrder();
+
     return () => clearInterval(interval);
   }, [cart]);
 

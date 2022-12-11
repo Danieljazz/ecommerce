@@ -12,10 +12,11 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Success from "./pages/Success";
 
 const App = () => {
-  const user = false;
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <Router>
       <Routes>

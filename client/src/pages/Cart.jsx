@@ -146,11 +146,17 @@ const CheckoutButton = styled.button`
   z-index: 0;
   ${mobile({ fontSize: "20px" })};
 `;
+const Error = styled.span`
+  font-size: 20px;
+  margin-top: 20px;
+  color: red;
+`;
 
 const Cart = () => {
   const KEY = process.env.REACT_APP_STRIPEPK;
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user.currentUser);
   const [reducedCart, setReducedCart] = useState([{}]);
   const [stripeToken, setStripeToken] = useState(null);
   useEffect(() => {
@@ -183,17 +189,23 @@ const Cart = () => {
   useEffect(() => {
     const makePaymentReq = async () => {
       try {
-        const res = axios.post("http://localhost:5000/api/checkout/payment", {
-          tokenId: stripeToken.id,
-          amount: (cart.total + 10) * 100,
-        });
-        //console.log(res);
+        const res = await axios.post(
+          "http://localhost:5000/api/checkout/payment",
+          {
+            tokenId: stripeToken.id,
+            amount: (cart.total + 10) * 100,
+          },
+        );
+        console.log("res from cart", res);
+        console.log("res from cart", cart);
         navigate("/success", {
-          stripeData: res.data,
-          products: cart,
+          state: {
+            stripeData: res.data,
+            cart: cart,
+          },
         });
       } catch (err) {
-        //console.log(err);
+        console.log(err);
       }
     };
     stripeToken && cart.total >= 1 && makePaymentReq();
@@ -263,11 +275,12 @@ const Cart = () => {
             shippingAddress
             billingAddress
             amount={(cart.total + 10) * 100}
-            description={`Youre total is ${cart.total + 10}$`}
+            description={`Your total is ${cart.total + 10}$`}
             token={onToken}
             stripeKey={KEY}
           >
-            <CheckoutButton>CHECKOUT</CheckoutButton>
+            <CheckoutButton disabled={!user}>CHECKOUT</CheckoutButton>
+            {!user && <Error>Login or register to make the order</Error>}
           </StripeCheckout>
         </SummaryContainer>
       </Wrapper>

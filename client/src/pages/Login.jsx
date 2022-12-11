@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import { mobile } from "../responsive";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import login from "../redux/apiCalls";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -89,10 +90,18 @@ const SubmitButton = styled.button`
   justify-content: space-evenly;
   ${mobile({ fontSize: "20px" })}
 `;
+
+const Error = styled.span`
+  font-size: 20px;
+  margin-top: 20px;
+  color: red;
+`;
+
 const Login = () => {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
   const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
   const onSubmit = (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
@@ -122,9 +131,10 @@ const Login = () => {
           </Form>
           <Link>Password lost?</Link>
           <Link>Create Account</Link>
-          <SubmitButton onClick={onSubmit}>
+          <SubmitButton onClick={onSubmit} disabled={isFetching}>
             LogIn <LoginIcon fontSize="large" />
           </SubmitButton>
+          {error && <Error>Something is wrong...</Error>}
         </FormWrapper>
       </Wrapper>
     </Container>

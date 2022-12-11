@@ -33,7 +33,7 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ username: req.body.username });
     // this solution instead of && due to header sent problem
     if (!user) {
-      return res.status(404).json("Wrong credentials");
+      return res.status(401).json("Wrong credentials");
     }
     const hashedPassword = cryptoJS.AES.decrypt(
       user.password,
