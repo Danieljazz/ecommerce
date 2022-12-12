@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Product from "./pages/Product";
 import Register from "./pages/Register";
+import RegisterSuccess from "./pages/RegisterSuccess";
 import {
   BrowserRouter as Router,
   Routes,
@@ -30,6 +31,7 @@ const App = () => {
           element={user ? <Navigate to="/" /> : <Register />}
         />
         <Route path="/success" element={<Success />} />
+        <Route path="/registersuccess" element={<RegisterSuccess />}></Route>
       </Routes>
     </Router>
   );

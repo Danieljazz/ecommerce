@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 import { mobile } from "../responsive";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -28,7 +31,6 @@ const Title = styled.p`
   font-weight: italic;
   ${mobile({ fontSize: "32px" })}
 `;
-
 const VideoBg = styled.video`
   width: 100%;
   height: 100%;
@@ -38,15 +40,14 @@ const VideoBg = styled.video`
   transform: scale(1.5);
   ${mobile({ transform: "scale(1)" })}
 `;
-
 const Input = styled.input`
   font-size: 40px;
   background: rgba(0, 0, 0, 0.5);
   margin: 12px 12px;
   font-style: italic;
+  color: white;
   ${mobile({ fontSize: "20px" })}
 `;
-
 const FormWrapper = styled.div`
   width: 40%;
   height: 50%;
@@ -55,7 +56,6 @@ const FormWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
 const Form = styled.form`
   width: 100%;
   height: 70%;
@@ -64,6 +64,7 @@ const Form = styled.form`
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 100px;
 `;
 
 const Agreement = styled.span`
@@ -83,6 +84,30 @@ const SubmitButton = styled.button`
 `;
 
 const Register = () => {
+  const [mail, setMail] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const navigate = useNavigate();
+  const submitButton = () => {
+    const createUser = () => {
+      axios
+        .post("http://localhost:5000/api/auth/register", {
+          mail,
+          username,
+          password,
+        })
+        .then((value) => {
+          console.log({
+            data: { status: value.status, statusText: value.statusText },
+          });
+          navigate("/registersuccess");
+        })
+        .catch((err) => console.log(err));
+    };
+    console.log("hi");
+    createUser();
+  };
+
   return (
     <Container>
       <VideoBg
@@ -91,20 +116,42 @@ const Register = () => {
         loop
         src="https://assets.mixkit.co/videos/preview/mixkit-friends-laughing-on-a-bus-42583-large.mp4"
       ></VideoBg>
-      <Title>[REGISTER]</Title>
+      <Link to="/">
+        <Title>[REGISTER]</Title>
+      </Link>
       <Wrapper>
         <FormWrapper>
           <Form>
-            <Input type="text" placeholder="Name"></Input>
-            <Input type="text" placeholder="Surname"></Input>
-            <Input type="mail" placeholder="Mail"></Input>
-            <Input type="password" placeholder="Password"></Input>
+            <Input type="text" placeholder="Name" onChange={() => {}}></Input>
+            <Input
+              type="text"
+              placeholder="Surname"
+              onChange={() => {}}
+            ></Input>
+            <Input
+              type="text"
+              placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
+            ></Input>
+            <Input
+              type="mail"
+              placeholder="Mail"
+              onChange={(e) => setMail(e.target.value)}
+            ></Input>
+            <Input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            ></Input>
           </Form>
           <Agreement>
             By creating an account I consent to processing of my personal data
             in accordance with the PRIVACY POLICY
           </Agreement>
-          <SubmitButton>
+          <SubmitButton
+            onClick={submitButton}
+            disabled={!username || !mail || !password}
+          >
             Create <AddIcon fontSize="40px" />
           </SubmitButton>
         </FormWrapper>
