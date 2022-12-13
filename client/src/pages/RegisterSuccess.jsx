@@ -1,5 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import Navbar from "../components/Navbar";
+
+const Container = styled.div`
+  height: 100vh;
+`;
 
 const SuccessTitle = styled.div`
   color: white;
@@ -11,6 +16,14 @@ const SuccessTitle = styled.div`
 `;
 
 const RegisterSuccess = () => {
-  return <SuccessTitle>You have been registered successfully</SuccessTitle>;
+  return (
+    <Container>
+      <Navbar />
+      <SuccessTitle>
+        You have been registered successfully. Now you can login on the navbar
+        using credentials
+      </SuccessTitle>
+    </Container>
+  );
 };
 export default RegisterSuccess;

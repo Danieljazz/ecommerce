@@ -143,14 +143,14 @@ const Product = () => {
         );
         console.log(res);
         setProduct(res.data);
+        setChosenSize(res.data.size[0]);
+        setChosenColor(res.data.color[0]);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getProduct();
-    console.log(product);
   }, []);
-
   useEffect(() => console.log(chosenSize), [chosenSize]);
 
   const addButtonHandle = () => {
@@ -201,7 +201,7 @@ const Product = () => {
                   setChosenSize(e.target.value);
                 }}
               >
-                <Size>-</Size>
+                {/* <Size>-</Size> */}
                 {product.size?.map((size) => (
                   <Size key={size}>{size.toUpperCase()}</Size>
                 ))}
