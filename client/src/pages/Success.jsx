@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
+import { clearCart } from "../redux/cartRedux";
 const Success = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const stripeData = location.state.stripeData;
   const cart = location.state.cart;
   const user = useSelector((state) => state.user.currentUser);
@@ -29,11 +31,13 @@ const Success = () => {
           { headers: { token: `Bearer ${user.accessToken}` } },
         );
         console.log(res);
+        dispatch(clearCart());
       } catch (err) {
         console.log(err);
       }
     };
     createOrder();
+
     const interval = setInterval(() => {
       navigate("/");
     }, 3000);

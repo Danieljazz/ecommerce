@@ -13,8 +13,34 @@ const cartSlice = createSlice({
       state.quantity += 1;
       state.total += action.payload.price;
     },
+    removeProduct: (state, action) => {
+      state.total -= action.payload.price;
+      state.quantity -= 1;
+      state.products.splice(
+        state.products.findIndex((el) => el === action.payload._id),
+        1,
+      );
+    },
+    addExistingProduct: (state, action) => {
+      state.total += action.payload.price;
+      state.quantity += 1;
+      state.products.push(
+        state.products.find(
+          (el) =>
+            el._id === action.payload._id &&
+            el.chosenSize === action.payload.chosenSize &&
+            el.chosenColor === action.payload.chosenColor,
+        ),
+      );
+    },
+    clearCart: (state) => {
+      state.products = [];
+      state.quantity = 0;
+      state.total = 0;
+    },
   },
 });
 
-export const { addProduct } = cartSlice.actions;
+export const { addProduct, removeProduct, clearCart, addExistingProduct } =
+  cartSlice.actions;
 export default cartSlice.reducer;

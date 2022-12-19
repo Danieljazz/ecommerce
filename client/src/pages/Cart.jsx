@@ -6,10 +6,11 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
+import { removeProduct } from "../redux/cartRedux";
 const Container = styled.div`
   position: relative;
   background-color: #97a396;
@@ -59,7 +60,6 @@ const ProductContainer = styled.div`
     display: "content",
   })}
 `;
-
 const ProductImage = styled.img`
   height: 200px;
   width: 200px;
@@ -67,7 +67,6 @@ const ProductImage = styled.img`
   object-fit: cover;
   ${mobile({ borderRadius: "50%", width: "125px", height: "125px" })}
 `;
-
 const ProductSummary = styled.div`
   flex: 2;
   display: flex;
@@ -89,7 +88,6 @@ const Color = styled.div`
   background-color: ${(props) => props.bg};
   margin-left: 20px;
 `;
-
 const ProductPrice = styled.div`
   flex: 1;
   height: 100%;
@@ -108,7 +106,7 @@ const Qunatity = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
+  width: 70px;
   ${mobile({ fontSize: "14px" })}
 `;
 const SummaryContainer = styled.div`
@@ -133,7 +131,6 @@ const SummaryItem = styled.span`
   font-size: 20px;
   padding-top: 10px;
 `;
-
 const CheckoutButton = styled.button`
   width: 100%;
   font-size: 40px;
@@ -157,6 +154,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   const [reducedCart, setReducedCart] = useState([{}]);
   const [stripeToken, setStripeToken] = useState(null);
   useEffect(() => {
@@ -186,6 +184,10 @@ const Cart = () => {
     setStripeToken(token);
   };
 
+  const removeCartProduct = (price, _id) => {
+    dispatch(removeProduct({ price, _id }));
+  };
+
   useEffect(() => {
     const makePaymentReq = async () => {
       try {
@@ -196,8 +198,6 @@ const Cart = () => {
             amount: (cart.total + 10) * 100,
           },
         );
-        console.log("res from cart", res);
-        console.log("res from cart", cart);
         navigate("/success", {
           state: {
             stripeData: res.data,
@@ -247,11 +247,13 @@ const Cart = () => {
                 </ProductSummary>
                 <ProductPrice>
                   <Qunatity>
-                    {/* <RemoveIcon
+                    <RemoveIcon
                       fontSize="20px"
-                      onClick={() => (product.productQuantity -= 1)}
+                      onClick={() =>
+                        removeCartProduct(product.price, product._id)
+                      }
                       style={{ zIndex: "3", cursor: "pointer" }}
-                    /> */}
+                    />
                     {product.productQuantity}
                     {/* <AddIcon
                       onClick={() => (product.productQuantity += 1)}
