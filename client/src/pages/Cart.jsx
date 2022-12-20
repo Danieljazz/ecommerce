@@ -10,7 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
-import { removeProduct } from "../redux/cartRedux";
+import { removeProduct, addExistingProduct } from "../redux/cartRedux";
+import { v4 as uuidv4 } from "uuid";
 const Container = styled.div`
   position: relative;
   background-color: #97a396;
@@ -188,6 +189,10 @@ const Cart = () => {
     dispatch(removeProduct({ price, _id }));
   };
 
+  const addCartProduct = (price, _id, chosenSize, chosenColor) => {
+    dispatch(addExistingProduct({ price, _id, chosenSize, chosenColor }));
+  };
+
   useEffect(() => {
     const makePaymentReq = async () => {
       try {
@@ -235,7 +240,7 @@ const Cart = () => {
             </div>
           ) : (
             reducedCart.slice(1, reducedCart.length).map((product) => (
-              <ProductContainer>
+              <ProductContainer key={uuidv4()}>
                 <ProductImage src={product.img}></ProductImage>
                 <ProductSummary>
                   <ProductProp>Product: {product.title}</ProductProp>
@@ -255,11 +260,18 @@ const Cart = () => {
                       style={{ zIndex: "3", cursor: "pointer" }}
                     />
                     {product.productQuantity}
-                    {/* <AddIcon
-                      onClick={() => (product.productQuantity += 1)}
+                    <AddIcon
+                      onClick={() =>
+                        addCartProduct(
+                          product.price,
+                          product._id,
+                          product.chosenSize,
+                          product.chosenColor,
+                        )
+                      }
                       fontSize="20px"
                       style={{ zIndex: "3", cursor: "pointer" }}
-                    /> */}
+                    />
                   </Qunatity>
                   <Price>{product.price * product.productQuantity}$</Price>
                 </ProductPrice>
