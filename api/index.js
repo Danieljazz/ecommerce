@@ -10,15 +10,16 @@ const orderRoute = require("./routes/order");
 const checkoutRoute = require("./routes/stripe");
 const cors = require("cors");
 dotenv.config();
-mongoose
-  .connect(process.env.v3n4rSH9uXW, { useNewUrlParser: true })
-  .then(() => console.log("DB Connection success"))
-  .catch((err) => console.log("There is error with DB connection", err));
 app.use(
   cors({
     origin: ["http://localhost:5000", "https://neobonk.onrender.com"],
   }),
 );
+mongoose
+  .connect(process.env.v3n4rSH9uXW, { useNewUrlParser: true })
+  .then(() => console.log("DB Connection success"))
+  .catch((err) => console.log("There is error with DB connection", err));
+
 app.use(express.json());
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
