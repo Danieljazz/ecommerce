@@ -16,7 +16,7 @@ mongoose
   .catch((err) => console.log("There is error with DB connection", err));
 app.use(
   cors({
-    origin: ["http://localhost:5000", "https://neobonk-api.onrender.com"],
+    origin: ["http://localhost:5000", "https://neobonk.onrender.com"],
   }),
 );
 app.use(express.json());

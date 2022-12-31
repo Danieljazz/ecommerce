@@ -197,7 +197,7 @@ const Cart = () => {
     const makePaymentReq = async () => {
       try {
         const res = await axios.post(
-          "${process.env.REACT_APP_SERVER}/api/checkout/payment",
+          `${process.env.REACT_APP_SERVER}/api/checkout/payment`,
           {
             tokenId: stripeToken.id,
             amount: (cart.total + 10) * 100,
