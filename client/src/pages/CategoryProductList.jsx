@@ -72,8 +72,8 @@ const CategoryProductList = () => {
       try {
         const res = await axios.get(
           chosenCategory
-            ? `http://localhost:5000/api/products/?category=${chosenCategory}`
-            : "http://localhost:5000/api/products",
+            ? `${process.env.REACT_APP_SERVER}/api/products/?category=${chosenCategory}`
+            : `${process.env.REACT_APP_SERVER}/api/products`,
         );
         setProducts(res.data);
       } catch (err) {}
