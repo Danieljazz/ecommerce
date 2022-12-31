@@ -14,7 +14,11 @@ mongoose
   .connect(process.env.v3n4rSH9uXW, { useNewUrlParser: true })
   .then(() => console.log("DB Connection success"))
   .catch((err) => console.log("There is error with DB connection", err));
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5000", "https://neobonk-api.onrender.com"],
+  }),
+);
 app.use(express.json());
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
