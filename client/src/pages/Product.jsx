@@ -141,17 +141,15 @@ const Product = () => {
         const res = await axios.get(
           `http://localhost:5000/api/products/${productId}`,
         );
-        console.log(res);
         setProduct(res.data);
         setChosenSize(res.data.size[0]);
         setChosenColor(res.data.color[0]);
       } catch (err) {
-        // console.log(err);
+        console.log(err);
       }
     };
     getProduct();
   }, []);
-  useEffect(() => console.log(chosenSize), [chosenSize]);
 
   const addButtonHandle = () => {
     dispatch(
