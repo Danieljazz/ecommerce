@@ -91,7 +91,7 @@ const Register = () => {
   const submitButton = () => {
     const createUser = () => {
       axios
-        .post("http://localhost:5000/api/auth/register", {
+        .post(`${process.env.REACT_APP_SERVER}/api/auth/register`, {
           mail,
           username,
           password,

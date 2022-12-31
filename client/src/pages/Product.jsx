@@ -139,7 +139,7 @@ const Product = () => {
     const getProduct = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/products/${productId}`,
+          `${process.env.REACT_APP_SERVER}/api/products/${productId}`,
         );
         setProduct(res.data);
         setChosenSize(res.data.size[0]);

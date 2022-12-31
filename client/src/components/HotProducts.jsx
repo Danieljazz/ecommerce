@@ -33,7 +33,9 @@ const HotProducts = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/products");
+        const res = await axios.get(
+          `${process.env.REACT_APP_SERVER}/api/products`,
+        );
         setProducts(res.data.slice(4, 8));
       } catch (err) {
         console.log(err);
