@@ -11,7 +11,7 @@ const checkoutRoute = require("./routes/stripe");
 const cors = require("cors");
 dotenv.config();
 mongoose
-  .connect(process.env.v3n4rSH9uXW)
+  .connect(process.env.v3n4rSH9uXW, { useNewUrlParser: true })
   .then(() => console.log("DB Connection success"))
   .catch((err) => console.log("There is error with DB connection", err));
 app.use(cors());
@@ -22,4 +22,4 @@ app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/checkout", checkoutRoute);
-app.listen("5000", () => console.log("Server is running"));
+app.listen("5000" || process.env.PORT, () => console.log("Server is running"));
