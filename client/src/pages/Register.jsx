@@ -97,14 +97,10 @@ const Register = () => {
           password,
         })
         .then((value) => {
-          console.log({
-            data: { status: value.status, statusText: value.statusText },
-          });
           navigate("/registersuccess");
         })
         .catch((err) => console.log(err));
     };
-    console.log("hi");
     createUser();
   };
 

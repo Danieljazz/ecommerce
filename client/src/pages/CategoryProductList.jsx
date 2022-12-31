@@ -95,25 +95,21 @@ const CategoryProductList = () => {
   }, [filters]);
 
   useEffect(() => {
-    console.log(sort);
     switch (sort) {
       case "new":
         setFilteredProducts((prevFilt) =>
           [...prevFilt].sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1)),
         );
-        console.log(filteredProducts);
         break;
       case "old":
         setFilteredProducts((prevFilt) =>
           [...prevFilt].sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)),
         );
-        console.log(filteredProducts);
         break;
       case "asc":
         setFilteredProducts((prev) =>
           [...prev].sort((a, b) => a.price - b.price),
         );
-        console.log(filteredProducts);
         break;
       case "desc":
         setFilteredProducts((prev) =>
@@ -133,11 +129,10 @@ const CategoryProductList = () => {
     }
   }, [, sort]);
 
-  //console.log("products: ", products);
   const filterHandler = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
-  //console.log("Filtered products", filteredProducts);
+
   return (
     <Container>
       <Announcemenet></Announcemenet>

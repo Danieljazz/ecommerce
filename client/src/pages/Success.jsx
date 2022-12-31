@@ -11,7 +11,6 @@ const Success = () => {
   const stripeData = location.state.stripeData;
   const cart = location.state.cart;
   const user = useSelector((state) => state.user.currentUser);
-  console.log(location.state);
   useEffect(() => {
     const createOrder = async () => {
       try {
@@ -30,7 +29,6 @@ const Success = () => {
           },
           { headers: { token: `Bearer ${user.accessToken}` } },
         );
-        console.log(res);
         dispatch(clearCart());
       } catch (err) {
         console.log(err);
