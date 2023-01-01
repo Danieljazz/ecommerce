@@ -5,7 +5,7 @@ import { mobile } from "../responsive";
 const Container = styled.div`
   width: 100%;
   height: 60vh;
-  background-color: #247066;
+  background-color: #447670;
   position: relative;
   display: flex;
   flex-direction: column;

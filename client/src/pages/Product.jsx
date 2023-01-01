@@ -151,6 +151,10 @@ const Product = () => {
     getProduct();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const addButtonHandle = () => {
     dispatch(
       addProduct({ ...product, chosenSize, chosenColor, productQuantity }),

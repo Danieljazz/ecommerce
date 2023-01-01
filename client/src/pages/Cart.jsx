@@ -192,7 +192,9 @@ const Cart = () => {
   const addCartProduct = (price, _id, chosenSize, chosenColor) => {
     dispatch(addExistingProduct({ price, _id, chosenSize, chosenColor }));
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     const makePaymentReq = async () => {
       try {

@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: red;
+  background-color: #a73131;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

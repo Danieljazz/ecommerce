@@ -6,7 +6,7 @@ import { mobile } from "../responsive";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 const Container = styled.div`
-  background: #1b5093;
+  background: #566485;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

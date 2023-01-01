@@ -9,6 +9,7 @@ import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -80,6 +81,9 @@ const CategoryProductList = () => {
     };
     getProducts();
     setFilteredProducts(products);
+  }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => setFilteredProducts(products), [products]);
@@ -192,7 +196,7 @@ const CategoryProductList = () => {
           {filteredProducts.length !== 0 ? (
             filteredProducts.map((item) => {
               if (item.inStock) {
-                return <ProductTile item={item}></ProductTile>;
+                return <ProductTile key={uuidv4()} item={item}></ProductTile>;
               }
             })
           ) : (

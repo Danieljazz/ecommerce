@@ -101,7 +101,7 @@ const Slider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       ArrowHandler("+");
-    }, 10000);
+    }, 1000000);
     return () => clearInterval(interval);
   }, [slideIndex]);
 
