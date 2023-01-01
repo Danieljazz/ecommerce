@@ -92,10 +92,10 @@ const Navbar = () => {
     <NavbarWrapper>
       <Left>
         <Language>EN</Language>
-        <SearchBar>
+        {/* <SearchBar>
           <Input></Input>
           <SearchIcon />
-        </SearchBar>
+        </SearchBar> */}
       </Left>
       <Center>
         <Link style={{ textDecoration: "none", color: "black" }} to={"/"}>
@@ -123,6 +123,7 @@ const Navbar = () => {
             </Link>
           </MenuItem>
         )}
+        {user && <MenuItem>{`Hi ${user.username}`}</MenuItem>}
         <MenuItem>
           <Link style={{ textDecoration: "none", color: "black" }} to={"/cart"}>
             <Badge badgeContent={qunatity} color="primary">

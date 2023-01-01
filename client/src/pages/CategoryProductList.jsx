@@ -142,10 +142,15 @@ const CategoryProductList = () => {
         <FilterContainer>
           <Filter>
             Filter by
-            <Select name="color" onClick={filterHandler}>
-              <Option disabled selected>
-                Color
-              </Option>
+            <Select
+              name="color"
+              onChange={(e) => {
+                e.target.value === "Color"
+                  ? setFilters((filters) => delete { ...filters["color"] })
+                  : filterHandler(e);
+              }}
+            >
+              <Option>Color</Option>
               <Option>White</Option>
               <Option>Blue</Option>
               <Option>Brown</Option>
@@ -154,10 +159,15 @@ const CategoryProductList = () => {
             </Select>
             <Filter>
               or
-              <Select name="size" onClick={filterHandler}>
-                <Option disabled selected>
-                  Size
-                </Option>
+              <Select
+                name="size"
+                onChange={(e) => {
+                  e.target.value === "Size"
+                    ? setFilters((filters) => delete { ...filters["size"] })
+                    : filterHandler(e);
+                }}
+              >
+                <Option>Size</Option>
                 <Option>XXS</Option>
                 <Option>XS</Option>
                 <Option>S</Option>
@@ -168,7 +178,7 @@ const CategoryProductList = () => {
           </Filter>
           <Filter>
             Sort by
-            <Select onClick={(e) => setSort(e.target.value)}>
+            <Select onChange={(e) => setSort(e.target.value)}>
               <Option value="new">Newest</Option>
               <Option value="old">Oldest</Option>
               <Option value="asc">Price ascending</Option>

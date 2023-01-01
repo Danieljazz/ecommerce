@@ -5,6 +5,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useState, useEffect } from "react";
 import { sliderItems } from "../data.js";
 import { mobile } from "../responsive";
+import { v4 as uuidv4 } from "uuid";
 const Container = styled.div`
   height: 100vh;
   width: 100%;
@@ -112,7 +113,7 @@ const Slider = () => {
       </Arrow>
       <Wrapper transform={slideIndex}>
         {sliderItems.map((slideItem) => (
-          <SliderWrapper bg={slideItem.bg}>
+          <SliderWrapper key={uuidv4()} bg={slideItem.bg}>
             <ImageContainer>
               <Image src={slideItem.imgSrc}></Image>
             </ImageContainer>

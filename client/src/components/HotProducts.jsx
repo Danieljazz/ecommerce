@@ -4,6 +4,7 @@ import ProductTile from "./ProductTile";
 import { hotProducts } from "../data";
 import { mobile } from "../responsive";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 const Container = styled.div`
   background: #1b5093;
   display: flex;
@@ -48,7 +49,7 @@ const HotProducts = () => {
     <Container>
       <Title>[Hot Products]</Title>
       {products.map((item) => (
-        <ProductTile item={item}></ProductTile>
+        <ProductTile key={uuidv4()} item={item}></ProductTile>
       ))}
     </Container>
   );

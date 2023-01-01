@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { categories } from "../data";
 import { mobile } from "../responsive";
+import { v4 as uuidv4 } from "uuid";
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -36,7 +37,7 @@ const Categories = () => {
     <Container>
       <PageTitle>[Categories]</PageTitle>
       {categories.map((category) => (
-        <CategoryItem item={category}></CategoryItem>
+        <CategoryItem key={uuidv4()} item={category}></CategoryItem>
       ))}
     </Container>
   );

@@ -12,7 +12,7 @@ const cors = require("cors");
 dotenv.config();
 app.use(
   cors({
-    origin: ["http://localhost:5000", "https://neobonk.onrender.com"],
+    origin: ["http://localhost:3000", "https://neobonk.onrender.com"],
   }),
 );
 mongoose
