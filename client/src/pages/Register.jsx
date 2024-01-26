@@ -142,7 +142,7 @@ const Register = () => {
           </Form>
           <Agreement>
             By creating an account I consent to processing of my personal data
-            in accordance with the PRIVACY POLICY
+            in accordance with the PRIVACY POLICY. I accept necessary cookies.
           </Agreement>
           <SubmitButton
             onClick={submitButton}
